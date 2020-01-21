@@ -24,9 +24,24 @@ public class EmployeeController {
 
     @DeleteMapping("/{id}")
     public @ResponseBody Employee delete(@PathVariable("id") Long id) {
-         Employee ret = employeeRepository.getOne(id);
-         employeeRepository.delete(employeeRepository.getOne(id)); //findOne?
-         return ret;
+        Employee ret = employeeRepository.findAll()
+                .stream()
+                .filter(e->e.getId().equals(id))
+                .findFirst().orElse(null);
+        try {
+            employeeRepository.delete(ret);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Couldn't delete Employee");
+        }
+        return ret;
+
+//        for (Employee employee: employeeRepository.findAll()) {
+//            if (employee.getId().equals(id)) {
+//                employeeRepository.delete(employee);
+//                return employee;
+//            }
+//        }
+//        return null;
     }
 
     @PostMapping
