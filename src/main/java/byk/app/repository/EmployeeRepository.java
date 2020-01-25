@@ -1,4 +1,4 @@
-package byk.app;
+package byk.app.repository;
 
 import byk.app.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;

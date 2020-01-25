@@ -2,9 +2,8 @@ package byk.app.controller;
 
 import byk.app.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import byk.app.EmployeeRepository;
+import byk.app.repository.EmployeeRepository;
 
 
 
@@ -23,17 +22,20 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody Employee delete(@PathVariable("id") Long id) {
-        Employee ret = employeeRepository.findAll()
-                .stream()
-                .filter(e->e.getId().equals(id))
-                .findFirst().orElse(null);
-        try {
-            employeeRepository.delete(ret);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Couldn't delete Employee");
-        }
-        return ret;
+    public void delete(@PathVariable("id") Long id) {
+        employeeRepository.deleteById(id);
+    }
+
+//        Employee ret = employeeRepository.findAll()
+//                .stream()
+//                .filter(e->e.getId().equals(id))
+//                .findFirst().orElse(null);
+//        try {
+//            employeeRepository.delete(ret);
+//        } catch (IllegalArgumentException e) {
+//            System.out.println("Couldn't delete Employee");
+//        }
+//        return ret;
 
 //        for (Employee employee: employeeRepository.findAll()) {
 //            if (employee.getId().equals(id)) {
@@ -42,10 +44,9 @@ public class EmployeeController {
 //            }
 //        }
 //        return null;
-    }
 
     @PostMapping
-    public @ResponseBody Employee create(@RequestBody Employee employee) { //??? puo' ritornare una classe?
+    public @ResponseBody Employee create(@RequestBody Employee employee) {
          employeeRepository.save(employee);
          return employee;
     }
