@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import byk.app.repository.EmployeeRepository;
 
+import java.util.Optional;
 
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -49,6 +50,12 @@ public class EmployeeController {
     public @ResponseBody Employee create(@RequestBody Employee employee) {
          employeeRepository.save(employee);
          return employee;
+    }
+
+    @PutMapping("/{id}")
+    public @ResponseBody Employee patch(@RequestBody Employee employee) {
+        Optional<Employee> target = employeeRepository.findById(employee.getId());
+        return employee;
     }
 
 }

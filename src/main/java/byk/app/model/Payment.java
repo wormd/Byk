@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @Entity
@@ -15,8 +15,8 @@ public class Payment {
     private long Id;
     private String desc;
     private float total;
-    private Date addDate;
-    private Date paidDate;
+    private LocalDate addDate;
+    private LocalDate paidDate;
     private long paymentId;
 
     public Payment() {
@@ -35,19 +35,19 @@ public class Payment {
         this.total = total;
     }
 
-    public Date getAddDate() {
+    public LocalDate getAddDate() {
         return addDate;
     }
 
-    public void setAddDate(Date addDate) {
+    public void setAddDate(LocalDate addDate) {
         this.addDate = addDate;
     }
 
-    public Date getPaidDate() {
+    public LocalDate getPaidDate() {
         return paidDate;
     }
 
-    public void setPaidDate(Date paidDate) {
+    public void setPaidDate(LocalDate paidDate) {
         this.paidDate = paidDate;
     }
 

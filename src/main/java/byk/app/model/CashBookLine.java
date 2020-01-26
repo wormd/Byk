@@ -1,12 +1,10 @@
 package byk.app.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
+@Table(name="cashbook")
 public class CashBookLine {
 
     @Id
@@ -15,11 +13,11 @@ public class CashBookLine {
     private String desc;
     private String rawDesc;
     private long contoId;
-    private float in;
-    private float out;
-    private long referenceId;
-    private Date date;
-    private Date valuta;
+    private Float in;
+    private Float out;
+    private Long referenceId;
+    private LocalDate date;
+    private LocalDate valuta;
 
     public CashBookLine() {
 
@@ -89,19 +87,19 @@ public class CashBookLine {
         this.referenceId = referenceId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public Date getValuta() {
+    public LocalDate getValuta() {
         return valuta;
     }
 
-    public void setValuta(Date valuta) {
+    public void setValuta(LocalDate valuta) {
         this.valuta = valuta;
     }
 }
