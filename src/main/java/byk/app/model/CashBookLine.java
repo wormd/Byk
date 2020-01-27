@@ -10,11 +10,11 @@ public class CashBookLine {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
-    private String desc;
-    private String rawDesc;
+    private String descr;
+    private String rawDescr;
     private long contoId;
-    private Float in;
-    private Float out;
+    private Float vIn;
+    private Float vOut;
     private Long referenceId;
     private LocalDate date;
     private LocalDate valuta;
@@ -24,11 +24,11 @@ public class CashBookLine {
     }
 
     public CashBookLine(String rawDesc, long contoId, long referenceId, float in, float out) {
-        this.rawDesc = rawDesc;
+        this.rawDescr = rawDesc;
         this.contoId = contoId;
         this.referenceId = referenceId;
-        this.in = in;
-        this.out = out;
+        this.vIn = in;
+        this.vOut = out;
     }
 
     public long getId() {
@@ -40,19 +40,19 @@ public class CashBookLine {
     }
 
     public String getDesc() {
-        return this.desc;
+        return this.descr;
     }
 
     public void setDesc(String setDesc) {
-        this.desc = setDesc;
+        this.descr = setDesc;
     }
 
     public String getRawDesc() {
-        return this.rawDesc;
+        return this.rawDescr;
     }
 
     public void setRawDesc(String rawDesc) {
-        this.rawDesc = rawDesc;
+        this.rawDescr = rawDesc;
     }
 
     public long getContoId() {
@@ -64,19 +64,19 @@ public class CashBookLine {
     }
 
     public float getIn() {
-        return in;
+        return vIn;
     }
 
     public void setIn(float in) {
-        this.in = in;
+        this.vIn = in;
     }
 
     public float getOut() {
-        return out;
+        return vOut;
     }
 
     public void setOut(float out) {
-        this.out = out;
+        this.vOut = out;
     }
 
     public long getReferenceId() {

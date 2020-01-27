@@ -13,7 +13,7 @@ public class Payment {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long Id;
-    private String desc;
+    private String descr;
     private float total;
     private LocalDate addDate;
     private LocalDate paidDate;
@@ -24,7 +24,7 @@ public class Payment {
     }
 
     public Payment(String desc, String surname) {
-        this.desc = desc;
+        this.descr = desc;
     }
 
     public float getTotal() {
@@ -70,10 +70,10 @@ public class Payment {
 
 
     public String getDesc() {
-        return desc;
+        return descr;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.descr = desc;
     }
 }
