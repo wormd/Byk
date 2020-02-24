@@ -1,23 +1,39 @@
 package byk.app.model;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sun.istack.NotNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Account {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
+
+    @NotNull
     private String name;
-    private String number;
 
-    public Account() {    }
+    @NotNull
+    private String address;
 
-    public Account(String name) {
+    private Float total;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Se fosse CashbookLine sarebbe cashbook_line
+    @JsonManagedReference
+    private Set<AccountCashbookJoin> accountCashbookJoins  = new HashSet<>();;
+
+    public Account() {
+        this.total = 0f;
+    }
+
+    public Account(String name, String address) {
+        this.name = name;
+        this.address = address;
+        this.total = 0f;
     }
 
     public long getId() {
@@ -29,18 +45,38 @@ public class Account {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getNumber() {
-        return number;
+    public String getAddress() {
+        return address;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setAddress(String number) {
+        this.address = number;
+    }
+
+    public Float getTotal() {
+        return total;
+    }
+
+    public void setTotal(Float total) {
+        this.total = total;
+    }
+
+    public Set<AccountCashbookJoin> getAccountCashbookJoins() {
+        return accountCashbookJoins;
+    }
+
+    public void setAccountCashbookJoins(Set<AccountCashbookJoin> accountCashBookJoins) {
+        this.accountCashbookJoins = accountCashBookJoins;
+//        for (AccountCashbookJoin tmp: accountCashBookJoins) {
+//            tmp.setAccount(this);
+//            this.accountCashbookJoins.add(tmp);
+//        }
     }
 }
