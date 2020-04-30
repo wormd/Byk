@@ -1,5 +1,6 @@
 package byk.app.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.lang.NonNull;
 
@@ -10,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Cashbookline {
+public class Transaction {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -19,6 +20,7 @@ public class Cashbookline {
     @Size(max=250)
     @NonNull
     private String descr;
+
     @Size(max=250)
     private String rawDescr;
 
@@ -27,15 +29,18 @@ public class Cashbookline {
     @NonNull
     private LocalDate date;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private Set<AccountCashbookJoin> accountCashbookJoins = new HashSet<>();
+    @ManyToOne(cascade = CascadeType.ALL) //fetch = FetchType.LAZY
+    @JsonBackReference
+    private Account account;
 
-    public Cashbookline() {
+    @NonNull
+    private Long target;
+
+    public Transaction() {
 
     }
 
-    public Cashbookline(String rawDesc, float amount) {
+    public Transaction(String rawDesc, float amount) {
         this.rawDescr = rawDesc;
         this.descr = rawDescr;
         this.amount = amount;
@@ -61,8 +66,8 @@ public class Cashbookline {
         return date;
     }
 
-    public void setDate(LocalDate valuta) {
-        this.date = valuta;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getDescr() {
@@ -81,14 +86,19 @@ public class Cashbookline {
         this.rawDescr = rawDescr;
     }
 
-    public Set<AccountCashbookJoin> getAccountCashbookJoins() {
-        return accountCashbookJoins;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setAccountCashbookJoins(Set<AccountCashbookJoin> accountCashbookJoins) {
-//        for (AccountCashbookJoin tmp: accountCashbookJoins) {
-//            tmp.setCashbookline(this);
-//        }
-        this.accountCashbookJoins = accountCashbookJoins;
+    public void setAccount(Account _account) {
+        this.account = _account;
+    }
+
+    public long getTarget() {
+        return target;
+    }
+
+    public void setTarget(long target) {
+        this.target = target;
     }
 }

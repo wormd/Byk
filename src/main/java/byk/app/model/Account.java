@@ -11,36 +11,36 @@ import java.util.Set;
 @Entity
 public class Account {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
     private String name;
 
     @NotNull
-    private String address;
+    private String descr;
 
     private Float total;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Se fosse CashbookLine sarebbe cashbook_line
+    @OneToMany(cascade = CascadeType.ALL) //    fetch = FetchType.LAZY
     @JsonManagedReference
-    private Set<AccountCashbookJoin> accountCashbookJoins  = new HashSet<>();;
+    private Set<Transaction> transactions  = new HashSet<>();;
 
     public Account() {
         this.total = 0f;
     }
 
-    public Account(String name, String address) {
+    public Account(String name, String descr) {
         this.name = name;
-        this.address = address;
+        this.descr = descr;
         this.total = 0f;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -52,14 +52,6 @@ public class Account {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String number) {
-        this.address = number;
-    }
-
     public Float getTotal() {
         return total;
     }
@@ -68,15 +60,19 @@ public class Account {
         this.total = total;
     }
 
-    public Set<AccountCashbookJoin> getAccountCashbookJoins() {
-        return accountCashbookJoins;
+    public Set<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public void setAccountCashbookJoins(Set<AccountCashbookJoin> accountCashBookJoins) {
-        this.accountCashbookJoins = accountCashBookJoins;
-//        for (AccountCashbookJoin tmp: accountCashBookJoins) {
-//            tmp.setAccount(this);
-//            this.accountCashbookJoins.add(tmp);
-//        }
+    public void setTransactions(Set<Transaction> _transactions) {
+        this.transactions = _transactions;
+    }
+
+    public String getDescr() {
+        return descr;
+    }
+
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 }

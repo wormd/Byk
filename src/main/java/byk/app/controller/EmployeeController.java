@@ -34,9 +34,10 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public @ResponseBody Employee patch(@RequestBody Employee employee) {
-        Optional<Employee> target = employeeRepository.findById(employee.getId());
-        return employee;
+    public @ResponseBody Employee replace(@PathVariable("id") Long id, @RequestBody Employee employee) {
+        return employeeRepository.save(employee);
+        // Optional<Employee> target = employeeRepository.findById(employee.getId());
+
     }
 
 }

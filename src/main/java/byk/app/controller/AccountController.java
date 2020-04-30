@@ -1,47 +1,41 @@
 package byk.app.controller;
 
 import byk.app.model.Account;
+import byk.app.model.Transaction;
 import byk.app.repository.AccountRepository;
+import byk.app.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("accounts")
+@RequestMapping("/accounts")
 public class AccountController {
 
     @Autowired
     private AccountRepository accountRepository;
 
+     //accounts/?id=0,1,2
     @GetMapping
-    public @ResponseBody Iterable<Account> find(@RequestParam(required=false) List<Long> ids) {
-        if (ids != null) {
-            System.out.println("Id list:"+ids);
-
-            return accountRepository.findAllById(ids);
+    public @ResponseBody Iterable<Account> findFilter(@PathVariable("id") @RequestParam(required=false) List<Long> ids) {
+        if (ids == null) {
+            return accountRepository.findAll();
         }
-        System.out.println("Id list:"+ids);
-
-        return accountRepository.findAll();
+        return accountRepository.findAllById(ids);
     }
 
-    @GetMapping("/{id}")
-    public @ResponseBody Account one(@PathVariable Long id) {
-        return accountRepository.getOne(id);
+    @GetMapping("/{account_id}")
+    public @ResponseBody Account find(@PathVariable Long account_id) {
+        return accountRepository.getOne(account_id);
     }
 
     @PostMapping
-    public void create(@RequestParam String name, String address) {
-        accountRepository.save(new Account(name,address));
+    public void create(@RequestBody Account account) {
+        accountRepository.save(account);
     }
 
-//    @GetMapping("/all")
-//    public @ResponseBody Iterable<Account> all() {
-//        return accountRepository.findAll();
-//    }
 }
