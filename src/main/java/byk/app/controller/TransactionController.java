@@ -31,7 +31,7 @@ public class TransactionController {
     public Iterable<Transaction> firstPage(@PathVariable("id") @RequestParam Long id) {
         LocalDate today = LocalDate.now();
         Account originAccount = accountRepository.getOne(id);
-        return transactionRepository.findByAccountAndDateAfterAndDateBefore(originAccount,
+        return transactionRepository.findByOriginAndDateAfterAndDateBefore(originAccount,
                 today.with(firstDayOfYear()),
                 today.with(lastDayOfYear()));
     }
@@ -45,7 +45,7 @@ public class TransactionController {
     public @ResponseBody
     Transaction create(@PathVariable("id") Long account_id, @RequestBody Transaction transaction) {
         Account account = accountRepository.getOne(account_id);
-        transaction.setAccount(account);
+        transaction.setOrigin(account);
         Set<Transaction> trans = account.getTransactions();
         trans.add(transaction);
         account.setTransactions(trans);
@@ -59,9 +59,7 @@ public class TransactionController {
                                                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
                                                      @RequestParam("before") LocalDate before)
     {
-        Account originAccount = accountRepository.getOne(account_id);
-        // return transactionRepository.findByDateAfterAndDateBefore(after, before);
-        return transactionRepository.findByAccountAndDateAfterAndDateBefore(originAccount, after, before);
+        return transactionRepository.findByAccountAndDates(account_id, after, before);
     }
 
 }

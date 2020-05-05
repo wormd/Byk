@@ -1,7 +1,6 @@
 package byk.app.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -29,12 +28,15 @@ public class Transaction {
     @NonNull
     private LocalDate date;
 
-    @ManyToOne(cascade = CascadeType.ALL) //fetch = FetchType.LAZY
-    @JsonBackReference
-    private Account account;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Account origin;
 
-    @NonNull
-    private Long target;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Account target;
 
     public Transaction() {
 
@@ -86,19 +88,19 @@ public class Transaction {
         this.rawDescr = rawDescr;
     }
 
-    public Account getAccount() {
-        return account;
+    public Account getOrigin() {
+        return origin;
     }
 
-    public void setAccount(Account _account) {
-        this.account = _account;
+    public void setOrigin(Account origin) {
+        this.origin = origin;
     }
 
-    public long getTarget() {
+    public Account getTarget() {
         return target;
     }
 
-    public void setTarget(long target) {
+    public void setTarget(Account target) {
         this.target = target;
     }
 }
