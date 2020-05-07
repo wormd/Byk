@@ -17,10 +17,9 @@ public class User {
     @JsonIgnore
     private String password;
 
-    @Size(max = 5)
+    @Size(max = 15)
     private String role;
-
-
+    
 
     public Boolean getEnabled() {
         return enabled;

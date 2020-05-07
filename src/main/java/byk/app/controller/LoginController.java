@@ -1,20 +1,20 @@
 package byk.app.controller;
 
 import byk.app.jwt.JwtProvider;
+import byk.app.jwt.RequestUser;
 import byk.app.model.User;
 import byk.app.repository.UserRepository;
-import byk.app.service.UserService;
+import byk.app.CustomRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -24,43 +24,42 @@ public class LoginController {
     AuthenticationManager authMngr;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private UserRepository userRepository;
 
     @Autowired
     JwtProvider jwt;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User requestUser) {
+    public ResponseEntity<?> login(@RequestBody RequestUser requestUser) {
         try {
-            User user = userService.loadUserByUsername(requestUser.getUsername());
-            String encoded = new BCryptPasswordEncoder(10).encode(requestUser.getPassword());
-            if (user.getPassword() != encoded) {
-                return ResponseEntity.badRequest().body("Wrong password");
-            }
-
             Authentication auth = authMngr.authenticate(
-                    new UsernamePasswordAuthenticationToken(requestUser.getUsername(), encoded));
-            SecurityContextHolder.getContext().setAuthentication(auth);
+                    new UsernamePasswordAuthenticationToken(requestUser.getUsername(), requestUser.getPassword()));
+
             String token = jwt.generateTokenFromAuthentication(auth);
-            return ResponseEntity.ok()
-                    .body((new HashMap()).put("token", token));
+            // HashMap<String, String> a = new HashMap<>();
+            return ResponseEntity.ok(Map.of("token", token));
 
         } catch (UsernameNotFoundException e) {
-            return ResponseEntity.badRequest().body("Username doesn't exist");
+            throw new CustomRuntimeException("Role not specified");
         }
 
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout(@RequestHeader Map<String, String> header) {
-        String token = header.get("Authorization");
-        if (token == null) {
-            return ResponseEntity.badRequest().body("Can't logout");
+    @PostMapping("/signup")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<?> signin(@RequestBody RequestUser requestUser) {
+        if (userRepository.findByUsername(requestUser.getUsername()).isPresent()) {
+            throw new CustomRuntimeException("Username taken");
         }
-        String requestUsername = jwt.getUsernameFromToken(token);
-        return ResponseEntity.ok().build();
+        if (requestUser.getRole() == null) {
+            throw new CustomRuntimeException("Role not specified");
+        }
+        User user = new User();
+        user.setUsername(requestUser.getUsername());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
+        user.setPassword(encoder.encode(requestUser.getPassword()));
+        user.setRole(requestUser.getRole());
+        userRepository.save(user);
+        return ResponseEntity.ok().body(requestUser);
     }
 }

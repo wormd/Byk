@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import byk.app.repository.EmployeeRepository;
 
-import java.util.Optional;
-
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
