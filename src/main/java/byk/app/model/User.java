@@ -1,6 +1,7 @@
 package byk.app.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ public class User {
     private String username;
 
     @JsonIgnore
+    @Column(length = 60)
     private String password;
 
     @Size(max = 15)
