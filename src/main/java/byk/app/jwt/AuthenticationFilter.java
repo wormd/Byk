@@ -3,7 +3,6 @@ package byk.app.jwt;
 
 import byk.app.model.InternUser;
 import byk.app.service.InternUserService;
-import byk.app.CustomRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 

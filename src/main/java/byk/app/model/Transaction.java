@@ -27,13 +27,11 @@ public class Transaction {
     @NonNull
     private LocalDate date;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JsonIdentityReference(alwaysAsId = true)
     private Account origin;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JsonIdentityReference(alwaysAsId = true)
     private Account target;
 
@@ -91,15 +89,18 @@ public class Transaction {
         return origin;
     }
 
-    public void setOrigin(Account origin) {
+    public Transaction setOrigin(Account origin) {
         this.origin = origin;
+        return this;
     }
 
     public Account getTarget() {
         return target;
     }
 
-    public void setTarget(Account target) {
+    public Transaction setTarget(Account target) {
         this.target = target;
+        return this;
     }
+
 }

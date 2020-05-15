@@ -6,9 +6,12 @@ import byk.app.repository.AccountRepository;
 import byk.app.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Optional;
 import java.util.Set;
 
 import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
@@ -25,29 +28,30 @@ public class TransactionController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @GetMapping("/transactions/{id}")
-    public Iterable<Transaction> firstPage(@PathVariable("id") @RequestParam Long id) {
-        LocalDate today = LocalDate.now();
-        Account originAccount = accountRepository.getOne(id);
-        return transactionRepository.findByOriginAndDateAfterAndDateBefore(originAccount,
-                today.with(firstDayOfYear()),
-                today.with(lastDayOfYear()));
+    @DeleteMapping("/account/{acc_id}/transactions/{trans_id}")
+    public ResponseEntity<?> delete(@PathVariable("acc_id") Long acc_id, @PathVariable("trans_id") Long trans_id) {
+        Optional<Transaction> opt = transactionRepository.findById(trans_id);
+        if (opt.isPresent()) {
+            Transaction trans = opt.get();
+            Account target = trans.getTarget();
+            Account origin = trans.getOrigin();
+
+            origin.removeTransUpdateTotal(trans);
+
+            accountRepository.save(origin);
+            accountRepository.save(target);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
     }
 
-    @DeleteMapping("/transactions/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        transactionRepository.deleteById(id);
-    }
-
-    @PostMapping("/accounts/{id}/transactions")
-    public @ResponseBody
-    Transaction create(@PathVariable("id") Long account_id, @RequestBody Transaction transaction) {
-        Account account = accountRepository.getOne(account_id);
-        transaction.setOrigin(account);
-        Set<Transaction> trans = account.getTransactions();
-        trans.add(transaction);
-        account.setTransactions(trans);
-        return transactionRepository.save(transaction);
+    @PostMapping("/transactions")
+    public @ResponseBody Transaction create(@RequestBody Transaction trans) {
+        trans.getOrigin().addTotal(-trans.getAmount());
+        Account target = trans.getTarget();
+        target.addTotal(trans.getAmount());
+        target.addTransaction(trans);
+        return transactionRepository.save(trans);
     }
 
     @GetMapping("/accounts/{account_id}/transactions")

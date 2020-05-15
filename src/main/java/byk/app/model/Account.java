@@ -1,13 +1,18 @@
 package byk.app.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import byk.app.resolver.EntityIdResolver;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id", scope=Account.class, resolver = EntityIdResolver.class)
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,11 +24,11 @@ public class Account {
     @NotNull
     private String descr;
 
-    private Float total;
+    private Float total = 0f;
 
-    @OneToMany(cascade = CascadeType.ALL) //    fetch = FetchType.LAZY
-    @JsonManagedReference
-    private Set<Transaction> transactions  = new HashSet<>();;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true) //    fetch = FetchType.LAZY
+    @JsonIgnore
+    private Set<Transaction> transactions  = new HashSet<>();
 
     public Account() {
         this.total = 0f;
@@ -63,8 +68,8 @@ public class Account {
         return transactions;
     }
 
-    public void setTransactions(Set<Transaction> _transactions) {
-        this.transactions = _transactions;
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     public String getDescr() {
@@ -73,5 +78,27 @@ public class Account {
 
     public void setDescr(String descr) {
         this.descr = descr;
+    }
+
+    public void removeTransUpdateTotal(Transaction trans) {
+        Account target = trans.getTarget();
+        target.removeTargetTrans(trans);
+        this.total += trans.getAmount();
+        this.transactions.remove(trans);
+    }
+
+    public void removeTargetTrans(Transaction trans) {
+        trans.setTarget(null);
+        trans.setOrigin(null);
+        this.total -= trans.getAmount();
+        this.transactions.remove(trans);
+    }
+
+    public void addTotal(float add) {
+        this.total += add;
+    }
+
+    public void addTransaction(Transaction trans) {
+        this.transactions.add(trans);
     }
 }
