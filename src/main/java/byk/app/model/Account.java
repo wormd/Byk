@@ -1,12 +1,16 @@
 package byk.app.model;
 
+import byk.app.model.exception.TooEarlyException;
 import byk.app.resolver.EntityIdResolver;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sun.istack.NotNull;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,14 +34,21 @@ public class Account {
     @JsonIgnore
     private Set<Transaction> transactions  = new HashSet<>();
 
+    private LocalDateTime created;
+
+    @JsonIgnore
+    private LocalDateTime refreshed;
+
     public Account() {
         this.total = 0f;
+        this.refreshed = LocalDateTime.now();
+        this.created = LocalDateTime.now();
     }
 
     public Account(String name, String descr) {
+        this();
         this.name = name;
         this.descr = descr;
-        this.total = 0f;
     }
 
     public Long getId() {
@@ -80,6 +91,14 @@ public class Account {
         this.descr = descr;
     }
 
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
     public void removeTransUpdateTotal(Transaction trans) {
         Account target = trans.getTarget();
         target.removeTargetTrans(trans);
@@ -100,5 +119,18 @@ public class Account {
 
     public void addTransaction(Transaction trans) {
         this.transactions.add(trans);
+    }
+
+    public void refreshTotal() {
+        if (refreshed.isAfter(LocalDateTime.now().plusMinutes(10))) {
+            throw new TooEarlyException("Refreshing too fast");
+        }
+        float newTotal = 0f;
+        System.out.println("empty: "+this.transactions.isEmpty());
+        for(Transaction trans: this.transactions) {
+            System.out.println("name:"+trans.getDescr());
+            newTotal += trans.getAmount();
+        }
+        setTotal(newTotal);
     }
 }

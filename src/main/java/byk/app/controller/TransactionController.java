@@ -47,7 +47,9 @@ public class TransactionController {
 
     @PostMapping("/transactions")
     public @ResponseBody Transaction create(@RequestBody Transaction trans) {
-        trans.getOrigin().addTotal(-trans.getAmount());
+        Account origin = trans.getOrigin();
+        origin.addTotal(-trans.getAmount());
+        origin.addTransaction(trans);
         Account target = trans.getTarget();
         target.addTotal(trans.getAmount());
         target.addTransaction(trans);
