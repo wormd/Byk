@@ -30,9 +30,13 @@ public class Account {
 
     private Float total = 0f;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true) //    fetch = FetchType.LAZY
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true, mappedBy = "origin") //    fetch = FetchType.LAZY
     @JsonIgnore
-    private Set<Transaction> transactions  = new HashSet<>();
+    private Set<Transaction> originTransactions  = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true, mappedBy = "target")
+    @JsonIgnore
+    private Set<Transaction> targetTransactions  = new HashSet<>();
 
     private LocalDateTime created;
 
@@ -75,12 +79,28 @@ public class Account {
         this.total = total;
     }
 
-    public Set<Transaction> getTransactions() {
-        return transactions;
+    public Set<Transaction> getOriginTransactions() {
+        return originTransactions;
     }
 
-    public void setTransactions(Set<Transaction> transactions) {
-        this.transactions = transactions;
+    public void setOriginTransactions(Set<Transaction> originTransactions) {
+        this.originTransactions = originTransactions;
+    }
+
+    public Set<Transaction> getTargetTransactions() {
+        return targetTransactions;
+    }
+
+    public void setTargetTransactions(Set<Transaction> targetTransactions) {
+        this.targetTransactions = targetTransactions;
+    }
+
+    public LocalDateTime getRefreshed() {
+        return refreshed;
+    }
+
+    public void setRefreshed(LocalDateTime refreshed) {
+        this.refreshed = refreshed;
     }
 
     public String getDescr() {
@@ -99,38 +119,42 @@ public class Account {
         this.created = created;
     }
 
-    public void removeTransUpdateTotal(Transaction trans) {
-        Account target = trans.getTarget();
-        target.removeTargetTrans(trans);
+    public void removeOriginTransaction(Transaction trans) {
+        trans.setOrigin(null);
         this.total += trans.getAmount();
-        this.transactions.remove(trans);
+        this.originTransactions.remove(trans);
     }
 
-    public void removeTargetTrans(Transaction trans) {
+    public void removeTargetTransaction(Transaction trans) {
         trans.setTarget(null);
-        trans.setOrigin(null);
         this.total -= trans.getAmount();
-        this.transactions.remove(trans);
+        this.targetTransactions.remove(trans);
     }
 
     public void addTotal(float add) {
         this.total += add;
     }
 
-    public void addTransaction(Transaction trans) {
-        this.transactions.add(trans);
+    public void addOriginTransaction(Transaction trans) {
+        this.originTransactions.add(trans);
+    }
+
+    public void addTargetTransaction(Transaction trans) {
+        this.targetTransactions.add(trans);
     }
 
     public void refreshTotal() {
-        if (refreshed.isAfter(LocalDateTime.now().plusMinutes(10))) {
+        if (this.refreshed.plusMinutes(10).isAfter(LocalDateTime.now())) {
             throw new TooEarlyException("Refreshing too fast");
         }
         float newTotal = 0f;
-        System.out.println("empty: "+this.transactions.isEmpty());
-        for(Transaction trans: this.transactions) {
-            System.out.println("name:"+trans.getDescr());
+        for(Transaction trans: this.originTransactions) {
+            newTotal -= trans.getAmount();
+        }
+        for(Transaction trans: this.targetTransactions) {
             newTotal += trans.getAmount();
         }
         setTotal(newTotal);
+        this.refreshed = LocalDateTime.now();
     }
 }

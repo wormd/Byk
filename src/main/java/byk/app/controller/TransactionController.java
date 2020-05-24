@@ -36,7 +36,8 @@ public class TransactionController {
             Account target = trans.getTarget();
             Account origin = trans.getOrigin();
 
-            origin.removeTransUpdateTotal(trans);
+            origin.removeOriginTransaction(trans);
+            target.removeTargetTransaction(trans);
 
             accountRepository.save(origin);
             accountRepository.save(target);
@@ -49,10 +50,11 @@ public class TransactionController {
     public @ResponseBody Transaction create(@RequestBody Transaction trans) {
         Account origin = trans.getOrigin();
         origin.addTotal(-trans.getAmount());
-        origin.addTransaction(trans);
+        origin.addOriginTransaction(trans);
+
         Account target = trans.getTarget();
         target.addTotal(trans.getAmount());
-        target.addTransaction(trans);
+        target.addTargetTransaction(trans);
         return transactionRepository.save(trans);
     }
 
