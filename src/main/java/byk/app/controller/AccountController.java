@@ -21,7 +21,7 @@ public class AccountController {
 
      //accounts/?id=0,1,2
     @GetMapping
-    public @ResponseBody Iterable<Account> findFilter(@PathVariable("id") @RequestParam(required=false) List<Long> ids) {
+    public @ResponseBody Iterable<Account> findFilter(@RequestParam(name = "id", required=false) List<Long> ids) {
         if (ids == null) {
             return accountRepository.findAll();
         }
