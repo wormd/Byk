@@ -6,6 +6,7 @@ import org.springframework.lang.NonNull;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -27,6 +28,9 @@ public class Transaction {
     @NonNull
     private LocalDate date;
 
+    @NonNull
+    private LocalDateTime created;
+
     @ManyToOne(cascade = CascadeType.DETACH)
     @JsonIdentityReference(alwaysAsId = true)
     private Account origin;
@@ -36,10 +40,11 @@ public class Transaction {
     private Account target;
 
     public Transaction() {
-
+        this.created = LocalDateTime.now();
     }
 
     public Transaction(String rawDesc, float amount) {
+        this();
         this.rawDescr = rawDesc;
         this.descr = rawDescr;
         this.amount = amount;
