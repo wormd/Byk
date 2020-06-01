@@ -4,13 +4,19 @@ import byk.app.model.Account;
 import byk.app.model.Transaction;
 import byk.app.repository.AccountRepository;
 import byk.app.repository.TransactionRepository;
+import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -28,8 +34,10 @@ public class TransactionController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @DeleteMapping("/account/{acc_id}/transactions/{trans_id}")
-    public ResponseEntity<?> delete(@PathVariable("acc_id") Long acc_id, @PathVariable("trans_id") Long trans_id) {
+    Page<Transaction> transactions;
+
+    @DeleteMapping("/transactions/{trans_id}")
+    public ResponseEntity<?> delete(@PathVariable("trans_id") Long trans_id) {
         Optional<Transaction> opt = transactionRepository.findById(trans_id);
         if (opt.isPresent()) {
             Transaction trans = opt.get();
@@ -58,14 +66,32 @@ public class TransactionController {
         return transactionRepository.save(trans);
     }
 
-    @GetMapping("/accounts/{account_id}/transactions")
-    public @ResponseBody Iterable<Transaction> trans(@PathVariable("account_id") Long account_id,
-                                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                                     @RequestParam("after") LocalDate after,
-                                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                                     @RequestParam("before") LocalDate before)
-    {
-        return transactionRepository.findByAccountAndDates(account_id, after, before);
+    @GetMapping("/transactions/count")
+    public @ResponseBody ResponseEntity<?> count() {
+        HashMap<String, Integer> res = new HashMap();
+        res.put("count", transactions.getSize());
+        return ResponseEntity.ok(res);
     }
 
+    @GetMapping("/transactions")
+    public @ResponseBody ResponseEntity<?> get(@RequestParam String by,
+                                               @RequestParam int page,
+                                               @RequestParam int size,
+                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                   @RequestParam(value = "after", required = false)
+                                                           LocalDateTime after,
+                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                   @RequestParam(value = "before", required = false)
+                                                           LocalDateTime before) {
+        if (by.equals("date")) {
+            this.transactions = transactionRepository.findByDateAndDates(after, before,
+                    PageRequest.of(page, size, Sort.by("date").descending()));
+        } else if (by.equals("created")) {
+            this.transactions = transactionRepository.findByCreatedAndDates(after, before,
+                    PageRequest.of(page, size, Sort.by("created").descending()));
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok().body(this.transactions.getContent());
+    }
 }

@@ -1,12 +1,17 @@
 package byk.app.controller;
 
 import byk.app.model.Account;
+import byk.app.model.Transaction;
 import byk.app.model.exception.TooEarlyException;
 import byk.app.repository.AccountRepository;
+import byk.app.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +23,9 @@ public class AccountController {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    TransactionRepository transactionRepository;
 
      //accounts/?id=0,1,2
     @GetMapping
@@ -52,5 +60,14 @@ public class AccountController {
             }
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/{account_id}/transactions")
+    public @ResponseBody Iterable<Transaction> trans(@PathVariable("account_id") Long account_id,
+                                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                     @RequestParam(value = "after") LocalDateTime after,
+                                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                     @RequestParam(value = "before") LocalDateTime before) {
+        return transactionRepository.findByAccountAndDates(account_id, after.toLocalDate(), before.toLocalDate());
     }
 }
