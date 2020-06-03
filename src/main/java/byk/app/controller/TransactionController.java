@@ -4,7 +4,6 @@ import byk.app.model.Account;
 import byk.app.model.Transaction;
 import byk.app.repository.AccountRepository;
 import byk.app.repository.TransactionRepository;
-import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,15 +12,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
-
-import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
-import static java.time.temporal.TemporalAdjusters.lastDayOfYear;
 
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -34,7 +28,7 @@ public class TransactionController {
     @Autowired
     private AccountRepository accountRepository;
 
-    Page<Transaction> transactions;
+    Page<Transaction> transactionsPage;
 
     @DeleteMapping("/transactions/{trans_id}")
     public ResponseEntity<?> delete(@PathVariable("trans_id") Long trans_id) {
@@ -51,26 +45,30 @@ public class TransactionController {
             accountRepository.save(target);
             return ResponseEntity.ok().build();
         }
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.badRequest().body(Map.of("message", "Transaction doesn't exist"));
     }
 
     @PostMapping("/transactions")
     public @ResponseBody Transaction create(@RequestBody Transaction trans) {
+        Float amount = trans.getAmount();
         Account origin = trans.getOrigin();
-        origin.addTotal(-trans.getAmount());
+        origin.addTotal(-amount);
         origin.addOriginTransaction(trans);
 
         Account target = trans.getTarget();
-        target.addTotal(trans.getAmount());
+        target.addTotal(amount);
         target.addTargetTransaction(trans);
         return transactionRepository.save(trans);
     }
 
     @GetMapping("/transactions/count")
     public @ResponseBody ResponseEntity<?> count() {
-        HashMap<String, Integer> res = new HashMap();
-        res.put("count", transactions.getSize());
-        return ResponseEntity.ok(res);
+        if (this.transactionsPage != null) {
+            HashMap<String, Long> res = new HashMap<String, Long>();
+            res.put("count", this.transactionsPage.getTotalElements());
+            return ResponseEntity.ok(res);
+        }
+        return ResponseEntity.badRequest().body(Map.of("message", "No transactions retrived yet."));
     }
 
     @GetMapping("/transactions")
@@ -83,15 +81,16 @@ public class TransactionController {
                                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                                    @RequestParam(value = "before", required = false)
                                                            LocalDateTime before) {
+        page -= 1;
         if (by.equals("date")) {
-            this.transactions = transactionRepository.findByDateAndDates(after, before,
+            this.transactionsPage = transactionRepository.findByDateAndDates(after, before,
                     PageRequest.of(page, size, Sort.by("date").descending()));
         } else if (by.equals("created")) {
-            this.transactions = transactionRepository.findByCreatedAndDates(after, before,
+            this.transactionsPage = transactionRepository.findByCreatedAndDates(after, before,
                     PageRequest.of(page, size, Sort.by("created").descending()));
         } else {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(Map.of("message", "Parameter 'by' should be 'date' or 'created'"));
         }
-        return ResponseEntity.ok().body(this.transactions.getContent());
+        return ResponseEntity.ok(this.transactionsPage.getContent());
     }
 }

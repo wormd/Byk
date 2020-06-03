@@ -45,7 +45,7 @@ public class JwtProvider {
         DecodedJWT decoded = JWT.require(Algorithm.HMAC512(secret.getBytes())).build().verify(token);
         InternUser intuser = new InternUser();
         intuser.setUsername(decoded.getSubject());
-        Date expire = decoded.getExpiresAt();
+        // Date expire = decoded.getExpiresAt();
 
         List<String> roles = decoded.getClaim("Roles").asList(String.class);
         intuser.setAuthorities(

@@ -9,6 +9,11 @@ import java.util.Collection;
 import java.util.List;
 
 public class InternUser implements UserDetails {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2321600396127850805L;
+
     private String username;
 
     private String password;

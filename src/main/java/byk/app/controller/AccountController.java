@@ -10,9 +10,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -56,10 +56,10 @@ public class AccountController {
                 accountRepository.save(acc);
                 return ResponseEntity.ok().body(acc);
             } catch (TooEarlyException e) {
-                return ResponseEntity.badRequest().body("Refreshing too fast");
+                return ResponseEntity.badRequest().body(Map.of("message","Refreshing too fast"));
             }
         }
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.badRequest().body(Map.of("message", "Account doesn't exist"));
     }
 
     @GetMapping("/{account_id}/transactions")

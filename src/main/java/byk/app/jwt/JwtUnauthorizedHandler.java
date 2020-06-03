@@ -9,7 +9,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtUnauthorizedHandler implements AuthenticationEntryPoint, Serializable {
 
-    @Override
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = -7569247631960596655L;
+
+	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
