@@ -4,6 +4,7 @@ import byk.app.model.Account;
 import byk.app.model.Transaction;
 import byk.app.repository.AccountRepository;
 import byk.app.repository.TransactionRepository;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,8 +13,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -68,7 +71,7 @@ public class TransactionController {
             res.put("count", this.transactionsPage.getTotalElements());
             return ResponseEntity.ok(res);
         }
-        return ResponseEntity.badRequest().body(Map.of("message", "No transactions retrived yet."));
+        return ResponseEntity.badRequest().body(Map.of("message", "No transactions retrieved yet."));
     }
 
     @GetMapping("/transactions")
@@ -92,5 +95,17 @@ public class TransactionController {
             return ResponseEntity.badRequest().body(Map.of("message", "Parameter 'by' should be 'date' or 'created'"));
         }
         return ResponseEntity.ok(this.transactionsPage.getContent());
+    }
+
+    @GetMapping("/transactions-m")
+    public @ResponseBody ResponseEntity<?> findFilter(@RequestParam(name = "ids") List<Long> ids,
+                                                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                        @RequestParam(value = "after") LocalDateTime after,
+                                                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                          @RequestParam(value = "before") LocalDateTime before) {
+        if (ids == null) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Provide 'id' list"));
+        }
+        return ResponseEntity.ok(transactionRepository.findByAccountListAndDate(ids, after.toLocalDate(), before.toLocalDate()));
     }
 }

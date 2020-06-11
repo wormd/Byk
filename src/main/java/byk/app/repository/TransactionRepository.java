@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
@@ -21,4 +22,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     @Query("select t from Transaction t where ((?1 is null or t.date >= ?1) and (?2 is null or t.date <= ?2))")
     Page<Transaction> findByDateAndDates(LocalDateTime after, LocalDateTime before, Pageable pageable);
+
+    @Query("select t from Transaction t where (t.origin.id in ?1 or t.target.id in ?1) and (t.date >= ?2 and t.date <= ?3)")
+    Iterable<Transaction> findByAccountListAndDate(List<Long> ids, LocalDate after, LocalDate before);
 }

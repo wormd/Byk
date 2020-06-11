@@ -47,7 +47,7 @@ public class LoginController {
 
     @PostMapping("/signup")
     //@Secured("ROLE_ADMIN")
-    public ResponseEntity<?> signin(@RequestBody RequestUser requestUser) {
+    public ResponseEntity<?> signup(@RequestBody RequestUser requestUser) {
         if (userRepository.findByUsername(requestUser.getUsername()).isPresent()) {
             throw new CustomRuntimeException("Username taken");
         }
