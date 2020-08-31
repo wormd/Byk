@@ -1,0 +1,13 @@
+#sidenav {
+  /*background: #293846;*/
+  background: #dcddde;
+}
+
+.nav-link {
+  color: #626263;
+  /*color: black;*/
+}
+
+.nav-link:hover {
+  background: lightgray;
+}

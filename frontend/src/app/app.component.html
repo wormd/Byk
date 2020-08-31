@@ -1,0 +1,69 @@
+<app-alert-message></app-alert-message>
+<div id="page-wrapper" class="d-flex container-fluid p-0">
+  <!--  left nav -->
+  <nav id="sidenav" class="" [ngbCollapse]="!navShow" style="min-height: 100vh; width:160px; ">
+    <div class="text-center" style="height: 56px; background: #7e818d;">
+      <h2 class="navbar-brand">{{ title }}</h2>
+    </div>
+    <ul class="navbar navbar-nav m-0 p-0 mt-2" style="align-items: normal;">
+      <li class="nav-item">
+        <a routerLink="/" class="nav-link pl-2">Homepage</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/employees" class="nav-link pl-2">Employees</a>
+      </li>
+
+      <li class="nav-item" (click)="dropdownShow = !dropdownShow">
+        <a routerLink="/accounts" class="nav-link pl-2">Accounts<i class="fa fa-caret-down"></i></a>
+      </li>
+      <div class="" [hidden]="dropdownShow">
+        <li class="nav-item">
+          <a routerLink="/transactions" class="nav-link pl-4">Transactions</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/cashbook" class="nav-link pl-4">Cashbook</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/cashbook" class="nav-link pl-4">Extract</a>
+        </li>
+      </div>
+    </ul>
+  </nav>
+  <!--  left nav -->
+  <!--  right side wrapper -->
+  <div id="right-wrapper" style="width:100%;">
+  <!--  top bar -->
+    <nav id="top-nav" class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="collapse navbar-collapse">
+<!--        left topbar-->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <button class="btn btn-primary" (click)="navShow = !navShow">
+            <i class="fa fa-bars" ></i>
+            </button>
+          </li>
+        </ul>
+<!--        /left topbar-->
+<!--        right topbar-->
+        <ul class="navbar-nav ml-auto">
+          <li class="dropdown"><a class="nav-link"><i class="fa fa-bell "></i></a></li>
+          <li class="nav-item"><a class="nav-link" [hidden]="user" routerLink="/login">Log in</a></li>
+          <li *ngIf="user" class="nav-item dropdown" (click)="userShow = !userShow">
+            <a class="dropdown-toggle nav-link" role="button" data-toggle="dropdown">{{ user.username }}</a>
+            <div class="dropdown-menu" [ngbCollapse]="!userShow">
+                <a class="nav-item" class="dropdown-item" (click)="logout()">Logout</a>
+            </div>
+          </li>
+        </ul>
+<!--        /right topbar-->
+      </div>
+    </nav>
+<!--    /top bar-->
+    <!--      content -->
+    <div id="content" class="m-2">
+      <router-outlet user="user"></router-outlet>
+    </div>
+    <!--      /content -->
+  </div>
+<!--  /right side wrapper-->
+</div>

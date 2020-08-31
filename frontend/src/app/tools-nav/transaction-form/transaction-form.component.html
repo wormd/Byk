@@ -1,0 +1,52 @@
+<div class="card-body">
+    <form class="form-inline card-text" #lineForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <div class="input-group mr-2">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+            [class.submit-success]="alertService.alert.success"
+            [class.submit-error]="alertService.alert.danger"
+                   name="dp" [(ngModel)]="dateModel"
+                   ngbDatepicker
+                   #d="ngbDatepicker">
+
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+            </div>
+          </div>
+        </div>
+
+        <input type="text" class="form-control mr-2"
+                placeholder="Description"
+                name="descr"
+                [class.submit-success]="alertService.alert.success"
+                [class.submit-error]="alertService.alert.danger"
+                [(ngModel)]="transaction.descr"
+                required
+                #desc="ngModel" />
+
+        <input type="number" class="form-control mr-2"
+                placeholder="1000.00" name="total"
+                [class.submit-success]="alertService.alert.success"
+                [class.submit-error]="alertService.alert.danger"
+                [(ngModel)]="transaction.amount"
+                required
+                #cash="ngModel" />
+
+        <app-account-selector class="mr-2" [accounts]="accounts"
+                              [modelName]="'target'"
+                              [alerts]="true"
+                              [placeholder]="'Target Account'"
+                              [required]="true">
+        </app-account-selector>
+        <app-account-selector class="mr-2" [accounts]="accounts"
+                              [modelName]="'origin'"
+                              [placeholder]="'Origin Account'"
+                              [required]="originRequired">
+        </app-account-selector>
+        <!-- Don't show submit button until the origin account is loaded -->
+        <div *ngIf="accounts">
+            <button type="submit" class="btn btn-success" [disabled]="!lineForm.form.valid">Add</button>
+        </div>
+    </form>
+
+</div>

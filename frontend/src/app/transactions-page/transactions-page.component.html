@@ -1,0 +1,108 @@
+<div class="">
+  <ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li ngbNavItem>
+      <a ngbNavLink>Add Transaction</a>
+      <ng-template ngbNavContent>
+        <app-transaction-form [accounts]="accounts"></app-transaction-form>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>Add Account</a>
+      <ng-template ngbNavContent>
+        <app-account-form [accounts]="accounts"></app-account-form>
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav" class="border-right border-left border-bottom"></div>
+
+  <div *ngIf="accounts">
+    <nav class="navbar pr-0 pl-0">
+      <div class="d-flex mr-auto">
+        <div class="my-auto mr-2">Filter by:</div>
+        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="filterBy">
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" value="date" (click)="filterByClick()">Date
+          </label>
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" value="created" (click)="filterByClick()">Created
+          </label>
+        </div>
+        <form class="form-inline card-text ml-2" #lineForm="ngForm">
+          <div class="form-group">
+            <label class="mr-2">From:</label>
+            <div class="input-group mr-2">
+              <input class="form-control" placeholder="yyyy-mm-dd"
+                     name="dp" [(ngModel)]="fromDate"
+                     (dateSelect)="changeDate($event, 'after')"
+                     ngbDatepicker
+                     #f="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="f.toggle()" type="button"></button>
+              </div>
+            </div>
+            <label class="mr-2">To:</label>
+            <div class="input-group mr-2">
+              <input class="form-control" placeholder="yyyy-mm-dd"
+                     name="dp" [(ngModel)]="toDate"
+                     (dateSelect)="changeDate($event, 'before')"
+                     ngbDatepicker
+                     #t="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="t.toggle()" type="button"></button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="ml-2 mt-auto">
+        <app-month-bar></app-month-bar>
+      </div>
+      <div class="ml-2 mt-auto">
+        <app-year-bar></app-year-bar>
+      </div>
+    </nav>
+
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th scope="col" style="width: 1%">Created</th>
+        <th scope="col" style="width: 1%">Date</th>
+        <th scope="col" style="">Description</th>
+        <th scope="col" style="width: 1%">Amount</th>
+        <th scope="col" style="width: 1%">Origin</th>
+        <th scope="col" style="width: 1%">Target</th>
+        <th scope="col" style="width: 5%">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngIf="!transactions" class="spinner-border" role="status">
+        <td class="d-flex justify-content-center sr-only" colspan="5">Loading...</td>
+      </tr>
+      <tr *ngIf="transactions && transactions.length === 0" role="status">
+        <td colspan="7" class="text-center">This period is empty</td>
+      </tr>
+      <tr *ngFor="let line of transactions; let i = index" class="pt-1 pb-1">
+        <td class="text-nowrap">{{ line.created | date:'yyyy-MM-dd hh:mm' }}</td>
+        <td class="text-nowrap">{{ line.date }}</td>
+        <td>{{ line.descr }}</td>
+        <td class="text-nowrap" [ngClass]="{'text-danger':line.amount<0}">{{ line.amount | beautifyNum }}</td>
+        <td class="text-nowrap">{{ accountService.getAccountName(line.origin) }}</td>
+        <td class="text-nowrap">{{ accountService.getAccountName(line.target) }}</td>
+        <td class="text-nowrap"><button type="button" class="btn fa fa-info bg-transparent"></button>
+          <button type="button" class="btn fa fa-times bg-transparent p-2" (click)="transService.deleteDialog(line)"></button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-between p-2">
+    <ngb-pagination
+      [collectionSize]="transfService.count$ | async" [(page)]="transfService.filter.page" [pageSize]="transfService.filter.size">
+    </ngb-pagination>
+
+    <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="transfService.filter.size">
+      <option [ngValue]="100">100 entries per page</option>
+      <option [ngValue]="250">250 entries per page</option>
+      <option [ngValue]="0">Every entry per page</option>
+    </select>
+  </div>
+</div>

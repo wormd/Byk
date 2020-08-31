@@ -1,0 +1,7 @@
+<div class="card-body">
+    <ul class='list-inline'>
+        <li class='list-inline-item' scope="col" colspan="" *ngFor="let account of accounts">
+            <a [routerLink]="['/account', account.id]" class="toc-link">{{ account.name }}</a>
+        </li>
+    </ul>
+</div>

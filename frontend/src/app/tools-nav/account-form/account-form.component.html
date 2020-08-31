@@ -1,0 +1,22 @@
+<div class="card-body">
+  <form class="form-inline card-text" (ngSubmit)="onSubmit()" #lineForm="ngForm">
+    <input type="text" class="form-control mr-2 has-feedback"
+           placeholder="Name"
+           name="name"
+           [class.has-success]="alertService.alert.success"
+           [class.has-error]="alertService.alert.danger"
+           [(ngModel)]="account.name"
+           required/>
+
+    <input type="text" class="form-control mr-2"
+           placeholder="Description"
+           name="descr"
+           [class.has-success]="alertService.alert.success"
+           [class.has-error]="alertService.alert.danger"
+           [(ngModel)]="account.descr"
+           required/>
+
+      <button type="submit" class="btn btn-success" [disabled]="!lineForm.form.valid">Add</button>
+
+  </form>
+</div>
