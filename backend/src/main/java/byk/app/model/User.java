@@ -1,13 +1,11 @@
 package byk.app.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name="`User`")
 public class User {
     @Id
     @GeneratedValue
