@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {User} from '../_model/user';
 import {tap} from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +14,11 @@ export class AuthService {
   private _currentUser = new BehaviorSubject<User>(undefined);
 
   constructor(private http: HttpClient) {
-    this.url = 'http://localhost:8080';
+    this.url = environment.apiUrl;
   }
 
   fetchCurrentUser() {
-    this.http.get<User>(this.url + '/currentUser').subscribe(i => this._currentUser.next(i));
+    this.http.get<User>(this.url + 'currentUser').subscribe(i => this._currentUser.next(i));
   }
 
   get currentUser$() {
@@ -25,7 +27,7 @@ export class AuthService {
 
   login(user, pwd) {
     const ret = new Subject();
-    return this.http.post<any>(this.url + '/login',
+    return this.http.post<any>(this.url + 'login',
       {username: user, password: pwd})
       .pipe(tap(i => {
       localStorage.setItem('token', i.token);

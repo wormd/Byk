@@ -6,6 +6,7 @@ import {TransactionsFilter} from '../_model/transactions-filter';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {tap} from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 interface Count {
   count: number;
@@ -20,7 +21,7 @@ export class TransactionService {
   private _lastFilter: TransactionsFilter;
   private _count = new ReplaySubject<number>();
 
-  private readonly _addr = 'http://localhost:8080/';
+  private readonly _addr = environment.apiUrl;
   constructor(private http: HttpClient,
               private modalService: NgbModal,
               ) {

@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Account} from '../_model/account';
 import {ReplaySubject, Subject} from 'rxjs';
 import {tap} from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AccountService {
   private _accounts;
 
   constructor(private http: HttpClient) {
-    this.url = 'http://localhost:8080/accounts';
+    this.url = environment.apiUrl+'accounts';
   }
 
   get accounts$() {
