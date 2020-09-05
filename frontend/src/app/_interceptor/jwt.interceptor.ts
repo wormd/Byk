@@ -13,14 +13,17 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem('token');
+    if (request.body) {
+      console.log(JSON.stringify(request.body));
+    }
     if (token) {
       request = request.clone( {setHeaders: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
       }});
-    }
-    if (request.body) {
-      console.log(JSON.stringify(request.body));
+    } else {
+      // redirect to login if not logged
+      this.router.navigate(['login']);
     }
     return next.handle(request).pipe(tap(()  => {}, err => {
       if (err instanceof HttpErrorResponse && err.status === 401) {
