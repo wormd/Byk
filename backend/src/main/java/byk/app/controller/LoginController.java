@@ -51,14 +51,17 @@ public class LoginController {
         if (userRepository.findByUsername(requestUser.getUsername()).isPresent()) {
             throw new CustomRuntimeException("Username taken");
         }
-        if (requestUser.getRole() == null) {
-            throw new CustomRuntimeException("Role not specified");
-        }
+//        if (requestUser.getRole() == null) {
+//            throw new CustomRuntimeException("Role not specified");
+//        }
         User user = new User();
         user.setUsername(requestUser.getUsername());
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
         user.setPassword(encoder.encode(requestUser.getPassword()));
-        user.setRole(requestUser.getRole());
+        user.setRole("ROLE_USER");
+        if (userRepository.count() == 0) {
+            user.setRole("ROLE_ADMIN");
+        }
         userRepository.save(user);
         return ResponseEntity.ok().body(requestUser);
     }
