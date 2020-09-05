@@ -5,6 +5,7 @@ import {AuthService} from '../_service/auth.service';
 import {tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {AlertService} from '../_service/alert.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -13,8 +14,8 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem('token');
-    if (request.body) {
-      console.log(JSON.stringify(request.body));
+    if (request.body && !environment.production) {
+      console.log("Request body:" + JSON.stringify(request.body));
     }
     if (token) {
       request = request.clone( {setHeaders: {
