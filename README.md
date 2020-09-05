@@ -17,6 +17,10 @@ GRANT ALL PRIVILEGES ON bykdb.* TO 'bykusr'@'localhost';
 
 ```mvn clean install```
 
+## To compile frontend
+
+```npm run ng build -- --prod --base-href /byk/ --deploy-url /```
+
 ## To run backend jar
 
 Use 
