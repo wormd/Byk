@@ -1,0 +1,16 @@
+[Unit]
+Description=Byk Spring Boot
+After=syslog.target
+After=network.target[Service]
+User=wormd
+Type=simple
+
+[Service]
+ExecStart=/usr/bin/java -jar -Dspring.profiles.active=dev /home/wormd/byk/backend/app-0.0.1-SNAPSHOT.jar
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=bykbe
+
+[Install]
+WantedBy=multi-user.target

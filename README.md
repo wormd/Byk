@@ -13,11 +13,11 @@ GRANT ALL PRIVILEGES ON bykdb.* TO 'bykusr'@'localhost';
 
 ```docker-compose up```
 
-## To compile jar
+## To compile backend jar
 
 ```mvn clean install```
 
-## To run jar
+## To run backend jar
 
 Use 
 
@@ -25,8 +25,8 @@ Use
 
 or setup env variables:
 ```
-MYSQL_USER
-MYSQL_PWD
+DB_USER
+DB_PWD
 SECRET_TOKEN
 ```
 and run:
