@@ -5,4 +5,4 @@ echo -- Compiling backend..
 echo -- Done
 cd ../frontend
 echo -- Compiling frontend..
-npm run ng build --prod
+npm run ng build -- --prod --base-href /byk/ --deploy-url /
