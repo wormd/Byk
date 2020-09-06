@@ -103,6 +103,7 @@ public class TransactionController {
                                                         @RequestParam(value = "after") LocalDateTime after,
                                                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                                           @RequestParam(value = "before") LocalDateTime before) {
+        System.out.println(ids);
         if (ids == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "Provide 'id' list"));
         }

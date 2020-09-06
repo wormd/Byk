@@ -7,6 +7,7 @@ import {AccountService} from '../_service/account.service';
 import {Account} from '../_model/account';
 import {TransactionsFilterService} from '../_service/transactions-filter.service';
 import {Subscription} from 'rxjs';
+import { AuthService } from '../_service/auth.service';
 
 export function unsub(list: Subscription[]) {
   for (const item of list) {
@@ -33,13 +34,17 @@ export class TransactionsPageComponent implements OnInit, OnDestroy {
               public transfService: TransactionsFilterService,
               public transService: TransactionService,
               public accountService: AccountService,
-              private location: Location) { }
+              private location: Location,
+              private authService: AuthService) { }
 
   ngOnDestroy() {
     unsub(this.subs);
   }
 
   ngOnInit(): void {
+    if (!this.authService.loggedIn()) {
+      this.router.navigate(['login']);
+    }
     this.subs.push(this.accountService.accounts$.subscribe(data => {
       this.accounts = data;
     }));

@@ -8,6 +8,7 @@ import {Location} from '@angular/common';
 import {parseParamDates, sortTrans} from '../transactions-list/transactions-list.component';
 import {unsub} from '../transactions-page/transactions-page.component';
 import {Transaction} from '../_model/transaction';
+import { AuthService } from '../_service/auth.service';
 
 @Component({
   selector: 'app-cashbook-page',
@@ -29,6 +30,7 @@ export class CashbookPageComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               private transFService: TransactionsFilterService,
               private location: Location,
+              private authService: AuthService
               ) { }
 
   ngOnDestroy() {
@@ -36,8 +38,12 @@ export class CashbookPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (!this.authService.loggedIn()) {
+      this.router.navigate(['/login']);
+    }
     this.subs.push(this.accountService.accounts$.subscribe(accs => {
       this.accounts = accs;
+      console.log(accs)
       this.parseParamAccounts(this.queryMap.get('ids'));
       const dates = parseParamDates(this.queryMap);
       this.loadTrans(dates);

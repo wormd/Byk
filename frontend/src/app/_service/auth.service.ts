@@ -36,6 +36,15 @@ export class AuthService {
     }));
   }
 
+  signup(user, pwd) {
+    const ret = new Subject();
+    return this.http.post<any>(this.url + 'signup',
+      {username: user, password: pwd})
+      .pipe(tap(i => {
+      ret.next(i);
+    }));
+  }
+
   loggedIn() {
     const token = localStorage.getItem('token');
     return !!token;

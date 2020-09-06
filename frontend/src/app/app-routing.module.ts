@@ -7,11 +7,16 @@ import {HomepageComponent} from './homepage/homepage.component';
 import {AccountsListComponent} from './accounts-list/accounts-list.component';
 import {TransactionsPageComponent} from './transactions-page/transactions-page.component';
 import {CashbookPageComponent} from './cashbook-page/cashbook-page.component';
+import { SignupFormComponent } from './signup-form/signup-form.component';
+import { EmployeeFormComponent } from './employee-form/employee-form.component';
+import { RemindersPageComponent } from './reminders-page/reminders-page.component';
+import { InvoicesPageComponent } from './invoices-page/invoices-page.component';
+import { SuppliesPageComponent } from './supplies-page/supplies-page.component';
 
 
 const routes: Routes = [
   { path: 'employees', component: EmployeeListComponent},
-  // { path: 'employee-add', component: EmployeeFormComponent},
+  { path: 'employee-add', component: EmployeeFormComponent},
   { path: 'cashbook', component: CashbookPageComponent},
   { path: 'account', component: AccountPageComponent},
   { path: 'account/:id', component: AccountPageComponent},
@@ -19,6 +24,10 @@ const routes: Routes = [
   { path: 'accounts', component: AccountsListComponent},
   { path: '', component: HomepageComponent },
   { path: 'transactions', component: TransactionsPageComponent },
+  { path: 'signup', component: SignupFormComponent },
+  { path: 'reminders', component: RemindersPageComponent },
+  { path: 'invoices', component: InvoicesPageComponent },
+  { path: 'supplies', component: SuppliesPageComponent },
 ];
 
 @NgModule({

@@ -28,6 +28,10 @@ import {YearBarComponent} from './_util/year-bar.component';
 import {AccountSelectorComponent} from './_util/account-selector.component';
 import {BeautifyNumPipe} from './_pipe/beautify-num.pipe';
 import {CashbookPageComponent} from './cashbook-page/cashbook-page.component';
+import { SignupFormComponent } from './signup-form/signup-form.component';
+import { RemindersPageComponent } from './reminders-page/reminders-page.component';
+import { InvoicesPageComponent } from './invoices-page/invoices-page.component';
+import { SuppliesPageComponent } from './supplies-page/supplies-page.component';
 
 
 @NgModule({
@@ -53,6 +57,10 @@ import {CashbookPageComponent} from './cashbook-page/cashbook-page.component';
     YearBarComponent,
     AccountSelectorComponent,
     BeautifyNumPipe,
+    SignupFormComponent,
+    RemindersPageComponent,
+    InvoicesPageComponent,
+    SuppliesPageComponent,
   ],
   entryComponents: [
     ConfirmDialogComponent,

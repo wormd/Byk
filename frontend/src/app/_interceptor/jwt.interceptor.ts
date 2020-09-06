@@ -22,14 +22,15 @@ export class JwtInterceptor implements HttpInterceptor {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
       }});
-    } else {
-      // redirect to login if not logged
-      this.router.navigate(['login']);
     }
+    //  else {
+    //   // redirect to login if not logged
+    //   this.router.navigate(['login']);
+    // }
     return next.handle(request).pipe(tap(()  => {}, err => {
       if (err instanceof HttpErrorResponse && err.status === 401) {
         localStorage.removeItem('token');
-        this.router.navigate(['login']);
+        // this.router.navigate(['/login']);
       } else {
         this.alertService.message(`Code: ${err.status}, Message: ${err.message}`, 'danger');
       }

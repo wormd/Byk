@@ -3,6 +3,8 @@ import {AccountService} from '../_service/account.service';
 import {Account} from '../_model/account';
 import {AccountFilterService} from '../_service/account-filter.service';
 import {Location} from '@angular/common';
+import { AuthService } from '../_service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accounts-list',
@@ -15,11 +17,14 @@ export class AccountsListComponent implements OnInit {
 
   starredItems: number[];
 
-  constructor(private accountService: AccountService, private location: Location) {
+  constructor(private accountService: AccountService, private location: Location, private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.location.go('/accounts');
+    if (!this.authService.loggedIn()) {
+      this.router.navigate(['/login']);
+    }
+    // this.location.go('/accounts');
     this.starredItems = JSON.parse(localStorage.getItem('starred'));
     if (!this.starredItems) {
       this.starredItems = [];

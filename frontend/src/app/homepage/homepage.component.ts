@@ -20,6 +20,9 @@ export class HomepageComponent implements OnInit {
               private accountService: AccountService) { }
 
   ngOnInit(): void {
+    if (!this.authService.loggedIn()) {
+      this.router.navigate(['/login']);
+    }
     this.authService.currentUser$.subscribe(d => this.user = d);
     const starred: string[] = JSON.parse(localStorage.getItem('starred'));
     if (starred) {
