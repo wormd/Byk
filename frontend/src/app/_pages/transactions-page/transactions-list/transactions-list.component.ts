@@ -1,13 +1,13 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {TransactionService} from '../_service/transaction.service';
+import {TransactionService} from '../../../_service/transaction.service';
 
-import {Transaction} from '../_model/transaction';
-import {Account} from '../_model/account';
-import {TransactionsFilterService} from '../_service/transactions-filter.service';
-import {AccountService} from '../_service/account.service';
-import {unsub} from '../transactions-page/transactions-page.component';
+import {Transaction} from '../../../_model/transaction';
+import {Account} from '../../../_model/account';
+import {TransactionsFilterService} from '../../../_service/transactions-filter.service';
+import {AccountService} from '../../../_service/account.service';
+import {unsub} from '../transactions-page.component';
 
 export function parseParamDates(map: ParamMap) {
   const dates = { after: undefined, before: undefined};

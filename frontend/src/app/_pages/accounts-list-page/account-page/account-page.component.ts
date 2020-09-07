@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AccountService} from '../_service/account.service';
+import {AccountService} from '../../../_service/account.service';
 import {Location} from '@angular/common';
-import {Account} from '../_model/account';
-import { AuthService } from '../_service/auth.service';
+import {Account} from '../../../_model/account';
+import { AuthService } from '../../../_service/auth.service';
 
 @Component({
   selector: 'app-account-page',
