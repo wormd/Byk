@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeeService} from '../_service/employee.service';
-import {Employee} from '../_model/employee';
+import {EmployeeService} from '../../_service/employee.service';
+import {Employee} from '../../_model/employee';
 import {Router} from '@angular/router';
-import { AuthService } from '../_service/auth.service';
+import { AuthService } from '../../_service/auth.service';
 
 @Component({
-  selector: 'app-employee-list',
-  templateUrl: './employee-list.component.html',
-  styleUrls: ['./employee-list.component.css']
+  selector: 'app-employees-list-page',
+  templateUrl: './employees-list-page.component.html',
+  styleUrls: ['./employees-list-page.component.css']
 })
-export class EmployeeListComponent implements OnInit {
+export class EmployeesListPageComponent implements OnInit {
 
   employees: Employee[];
 

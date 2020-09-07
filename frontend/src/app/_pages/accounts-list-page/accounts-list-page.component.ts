@@ -1,23 +1,24 @@
 import {Component, OnInit} from '@angular/core';
-import {AccountService} from '../_service/account.service';
-import {Account} from '../_model/account';
-import {AccountFilterService} from '../_service/account-filter.service';
+import {AccountService} from '../../_service/account.service';
+import {Account} from '../../_model/account';
+import {AccountFilterService} from '../../_service/account-filter.service';
 import {Location} from '@angular/common';
-import { AuthService } from '../_service/auth.service';
+import { AuthService } from '../../_service/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-accounts-list',
-  templateUrl: './accounts-list.component.html',
-  styleUrls: ['./accounts-list.component.css']
+  selector: 'app-accounts-list-page',
+  templateUrl: './accounts-list-page.component.html',
+  styleUrls: ['./accounts-list-page.component.css']
 })
-export class AccountsListComponent implements OnInit {
+export class AccountsListPageComponent implements OnInit {
   accounts: Account[];
   filterService = new AccountFilterService();
 
   starredItems: number[];
 
-  constructor(private accountService: AccountService, private location: Location, private authService: AuthService, private router: Router) {
+  constructor(private accountService: AccountService, private location: Location,
+              private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {

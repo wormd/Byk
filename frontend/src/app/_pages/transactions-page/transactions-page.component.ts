@@ -1,13 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TransactionService} from '../_service/transaction.service';
+import {TransactionService} from '../../_service/transaction.service';
 import {Location} from '@angular/common';
-import {Transaction} from '../_model/transaction';
-import {AccountService} from '../_service/account.service';
-import {Account} from '../_model/account';
-import {TransactionsFilterService} from '../_service/transactions-filter.service';
+import {Transaction} from '../../_model/transaction';
+import {AccountService} from '../../_service/account.service';
+import {Account} from '../../_model/account';
+import {TransactionsFilterService} from '../../_service/transactions-filter.service';
 import {Subscription} from 'rxjs';
-import { AuthService } from '../_service/auth.service';
+import { AuthService } from '../../_service/auth.service';
 
 export function unsub(list: Subscription[]) {
   for (const item of list) {
