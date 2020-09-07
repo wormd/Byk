@@ -18,10 +18,10 @@ import {LoginFormPageComponent} from './_pages/login-form-page/login-form-page.c
 import {JwtInterceptor} from './_interceptor/jwt.interceptor';
 import {HomepageComponent} from './_pages/homepage/homepage.component';
 import {PaginationComponent} from './_util/pagination/pagination.component';
-import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
+import {ConfirmDialogComponent} from './_util/confirm-dialog/confirm-dialog.component';
 import {AccountsListPageComponent} from './_pages/accounts-list-page/accounts-list-page.component';
 import {CustomCheckboxDirective} from './_directive/custom-checkbox.directive';
-import {AlertMessageComponent} from './alert-message/alert-message.component';
+import {AlertMessageComponent} from './_util/alert-message/alert-message.component';
 import {TransactionsPageComponent} from './_pages/transactions-page/transactions-page.component';
 import {MonthBarComponent} from './_util/month-bar.component';
 import {YearBarComponent} from './_util/year-bar.component';

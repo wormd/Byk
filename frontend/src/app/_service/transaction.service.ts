@@ -3,7 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Transaction} from '../_model/transaction';
 import {ReplaySubject, Subject} from 'rxjs';
 import {TransactionsFilter} from '../_model/transactions-filter';
-import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {ConfirmDialogComponent} from '../_util/confirm-dialog/confirm-dialog.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {tap} from 'rxjs/operators';
 import { environment } from '../../environments/environment';
