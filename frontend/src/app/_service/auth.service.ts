@@ -18,7 +18,10 @@ export class AuthService {
   }
 
   fetchCurrentUser() {
-    this.http.get<User>(this.url + 'currentUser').subscribe(i => this._currentUser.next(i));
+    this.http.get<User>(this.url + 'currentUser').subscribe(
+      i => this._currentUser.next(i),
+      error => this.logout()
+    );
   }
 
   get currentUser$() {

@@ -19,8 +19,6 @@ export class AppComponent {
     if (authService.loggedIn()) {
       this.authService.fetchCurrentUser();
       this.authService.currentUser$.subscribe(d => this.user = d);
-    } else {
-      this.logout();
     }
   }
 
