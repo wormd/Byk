@@ -8,7 +8,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 
 import {EmployeesListPageComponent} from './_pages/employees-list-page/employees-list-page.component';
-import {EmployeeFormComponent} from './_pages/employees-list-page/employee-form/employee-form.component';
+import {EmployeeDialogAddComponent} from './_pages/employees-list-page/employee-dialog-add/employee-dialog-add.component';
 import {AccountTransListComponent} from './_pages/accounts-list-page/account-page/account-trans-list/account-trans-list.component';
 import {AccountListComponent} from './tools-nav/account-list/account-list.component';
 import {TransactionFormComponent} from './tools-nav/transaction-form/transaction-form.component';
@@ -38,7 +38,7 @@ import { SuppliesPageComponent } from './_pages/supplies-page/supplies-page.comp
   declarations: [
     AppComponent,
     EmployeesListPageComponent,
-    EmployeeFormComponent,
+    EmployeeDialogAddComponent,
     CashbookPageComponent,
     AccountPageComponent,
     AccountListComponent,

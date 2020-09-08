@@ -8,7 +8,7 @@ import {AccountsListPageComponent} from './_pages/accounts-list-page/accounts-li
 import {TransactionsPageComponent} from './_pages/transactions-page/transactions-page.component';
 import {CashbookPageComponent} from './_pages/cashbook-page/cashbook-page.component';
 import { SignupFormPageComponent } from './_pages/signup-form-page/signup-form-page.component';
-import { EmployeeFormComponent } from './_pages/employees-list-page/employee-form/employee-form.component';
+import { EmployeeDialogAddComponent } from './_pages/employees-list-page/employee-dialog-add/employee-dialog-add.component';
 import { RemindersPageComponent } from './_pages/reminders-page/reminders-page.component';
 import { InvoicesPageComponent } from './_pages/invoices-page/invoices-page.component';
 import { SuppliesPageComponent } from './_pages/supplies-page/supplies-page.component';
@@ -16,7 +16,7 @@ import { SuppliesPageComponent } from './_pages/supplies-page/supplies-page.comp
 
 const routes: Routes = [
   { path: 'employees', component: EmployeesListPageComponent},
-  { path: 'employee-add', component: EmployeeFormComponent},
+  { path: 'employee-add', component: EmployeeDialogAddComponent},
   { path: 'cashbook', component: CashbookPageComponent},
   { path: 'account', component: AccountPageComponent},
   { path: 'account/:id', component: AccountPageComponent},
