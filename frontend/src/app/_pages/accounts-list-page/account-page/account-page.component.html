@@ -15,6 +15,6 @@
   </ul>
   <div [ngbNavOutlet]="nav" class="border-right border-left border-bottom"></div>
   <div *ngIf="account && accounts">
-    <app-transactions-list [account]="account" [accounts]="accounts"></app-transactions-list>
+    <app-account-trans-list [account]="account" [accounts]="accounts"></app-account-trans-list>
   </div>
 </div>

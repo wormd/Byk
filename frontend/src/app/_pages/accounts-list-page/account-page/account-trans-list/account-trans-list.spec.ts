@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TransactionsListComponent} from './transactions-list.component';
+import {AccountTransListComponent} from './account-trans-list.component';
 
 describe('AccountComponent', () => {
-  let component: TransactionsListComponent;
-  let fixture: ComponentFixture<TransactionsListComponent>;
+  let component: AccountTransListComponent;
+  let fixture: ComponentFixture<AccountTransListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TransactionsListComponent ]
+      declarations: [ AccountTransListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TransactionsListComponent);
+    fixture = TestBed.createComponent(AccountTransListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

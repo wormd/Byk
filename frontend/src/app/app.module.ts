@@ -9,7 +9,7 @@ import {AppComponent} from './app.component';
 
 import {EmployeesListPageComponent} from './_pages/employees-list-page/employees-list-page.component';
 import {EmployeeFormComponent} from './_pages/employees-list-page/employee-form/employee-form.component';
-import {TransactionsListComponent} from './_pages/transactions-page/transactions-list/transactions-list.component';
+import {AccountTransListComponent} from './_pages/accounts-list-page/account-page/account-trans-list/account-trans-list.component';
 import {AccountListComponent} from './tools-nav/account-list/account-list.component';
 import {TransactionFormComponent} from './tools-nav/transaction-form/transaction-form.component';
 import {AccountPageComponent} from './_pages/accounts-list-page/account-page/account-page.component';
@@ -42,7 +42,7 @@ import { SuppliesPageComponent } from './_pages/supplies-page/supplies-page.comp
     CashbookPageComponent,
     AccountPageComponent,
     AccountListComponent,
-    TransactionsListComponent,
+    AccountTransListComponent,
     TransactionFormComponent,
     AccountFormComponent,
     LoginFormPageComponent,

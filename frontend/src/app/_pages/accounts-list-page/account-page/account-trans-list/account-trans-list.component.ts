@@ -1,13 +1,13 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {TransactionService} from '../../../_service/transaction.service';
+import {TransactionService} from '../../../../_service/transaction.service';
 
-import {Transaction} from '../../../_model/transaction';
-import {Account} from '../../../_model/account';
-import {TransactionsFilterService} from '../../../_service/transactions-filter.service';
-import {AccountService} from '../../../_service/account.service';
-import {unsub} from '../transactions-page.component';
+import {Transaction} from '../../../../_model/transaction';
+import {Account} from '../../../../_model/account';
+import {TransactionsFilterService} from '../../../../_service/transactions-filter.service';
+import {AccountService} from '../../../../_service/account.service';
+import {unsub} from '../../../transactions-page/transactions-page.component';
 
 export function parseParamDates(map: ParamMap) {
   const dates = { after: undefined, before: undefined};
@@ -24,11 +24,11 @@ export function sortTrans(list: Transaction[]) {
 }
 
 @Component({
-  selector: 'app-transactions-list',
-  templateUrl: './transactions-list.component.html',
-  styleUrls: ['./transactions-list.component.css']
+  selector: 'app-account-trans-list',
+  templateUrl: './account-trans-list.component.html',
+  styleUrls: ['./account-trans-list.component.css']
 })
-export class TransactionsListComponent implements OnInit, OnDestroy {
+export class AccountTransListComponent implements OnInit, OnDestroy {
   transactions: Transaction[];
   @Input() account: Account;
   @Input() accounts: Account[];
