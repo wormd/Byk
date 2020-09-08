@@ -98,7 +98,7 @@ export class TransactionService {
   }
 
   public count() {
-    this.http.get<Count>(this.url + '/count').subscribe(d => this._count.next(d.count));
+    this.http.get<Count>(this.url + 'count').subscribe(d => this._count.next(d.count));
   }
 
   get count$() {
@@ -106,7 +106,7 @@ export class TransactionService {
   }
 
   get url() {
-    return this._addr + 'transactions';
+    return this._addr + 'transactions/';
   }
 
   urlAccount(account) {

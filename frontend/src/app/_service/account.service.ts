@@ -15,7 +15,7 @@ export class AccountService {
   private _accounts;
 
   constructor(private http: HttpClient) {
-    this.url = environment.apiUrl+'accounts';
+    this.url = environment.apiUrl + 'accounts/';
   }
 
   get accounts$() {
@@ -32,11 +32,11 @@ export class AccountService {
   }
 
   public getOne(id: string) {
-    return this.http.get<Account>(this.url + '/' + id).toPromise();
+    return this.http.get<Account>(this.url + id).toPromise();
   }
 
   public get(ids: string[]) {
-    return this.http.get<Account[]>(this.url + '/', {params: {id: ids.join(',')}}).toPromise();
+    return this.http.get<Account[]>(this.url, {params: {id: ids.join(',')}}).toPromise();
   }
 
   public update() {
@@ -47,7 +47,7 @@ export class AccountService {
   }
 
   public refreshTotal(id: string) {
-    return this.http.get<Account[]>(`${this.url}/${id}/total`).pipe(tap(() => this.update()));
+    return this.http.get<Account[]>(`${this.url}${id}/total`).pipe(tap(() => this.update()));
   }
 
   getAccountName(id) {

@@ -13,7 +13,7 @@ export class EmployeeService {
   private url: string;
 
   constructor(private http: HttpClient) {
-    this.url = environment.apiUrl+'employees';
+    this.url = environment.apiUrl + 'employees/';
   }
 
   public getAll(): Observable<Employee[]> {
@@ -25,6 +25,6 @@ export class EmployeeService {
   }
 
   public delete(id: string) {
-    return this.http.delete(this.url + '/' + id, {responseType: 'text'});
+    return this.http.delete(this.url + id, {responseType: 'text'});
   }
 }

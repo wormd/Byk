@@ -43,7 +43,6 @@ export class CashbookPageComponent implements OnInit, OnDestroy {
     }
     this.subs.push(this.accountService.accounts$.subscribe(accs => {
       this.accounts = accs;
-      console.log(accs)
       this.parseParamAccounts(this.queryMap.get('ids'));
       const dates = parseParamDates(this.queryMap);
       this.loadTrans(dates);
