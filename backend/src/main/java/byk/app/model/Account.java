@@ -47,12 +47,6 @@ public class Account {
         this.created = LocalDateTime.now();
     }
 
-    public Account(String name, String descr) {
-        this();
-        this.name = name;
-        this.descr = descr;
-    }
-
     public Long getId() {
         return id;
     }
