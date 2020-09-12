@@ -50,6 +50,7 @@ export class AccountTransListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    var first = true;
     const dates = parseParamDates(this.queryMap);
     // this.transFService.resetFilter();
     this.transFService.filter = {after: dates.after, before: dates.before, account: this.account};
@@ -58,7 +59,11 @@ export class AccountTransListComponent implements OnInit, OnDestroy {
       this.transactions = data;
       this.calculateTotal();
       this.transactions = sortTrans(this.transactions);
-      this.location.go('/account/' + this.account.id, this.transFService.getQuery(10));
+      if (first) {
+        first = false;
+      } else { 
+        this.location.go('/account/' + this.account.id, this.transFService.getQuery(10));
+      }
     }));
   }
 

@@ -42,6 +42,7 @@ export class TransactionsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    var first = true;
     if (!this.authService.loggedIn()) {
       this.router.navigate(['login']);
     }
@@ -53,7 +54,11 @@ export class TransactionsPageComponent implements OnInit, OnDestroy {
     this.transfService.doFilter();
     this.subs.push(this.transfService.transactions$.subscribe(d => {
       this.transactions = d;
-      this.location.go('/transactions/', this.transfService.getQuery(10));
+      if (first) {
+        first = false;
+      } else {
+        this.location.go('/transactions/', this.transfService.getQuery(10));
+      }
     }));
 
   }
