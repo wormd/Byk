@@ -6,4 +6,5 @@ export class Employee {
     address: String;
     since: Date;
     until: Date;
+    account: Account;
 }

@@ -34,14 +34,14 @@ public class EmployeeController {
     public @ResponseBody Employee create(@RequestBody Employee employee) {
         Account acc = new Account();
         acc.setName(employee.getName()+" "+employee.getSurname());
-        acc.setDescr("Created for "+employee.getName()+" "+employee.getSurname()+ "employed since "+employee.getSince());
+        acc.setDescr("Created for "+employee.getName()+" "+employee.getSurname()+ ", employed since "+employee.getSince());
         employee.setAccount(acc);
         accountRepository.save(acc);
         employeeRepository.save(employee);
         return employee;
     }
 
-    @PutMapping()
+    @PutMapping
     public @ResponseBody Employee update(@RequestBody Employee employee) {
         return employeeRepository.save(employee);
         // Optional<Employee> target = employeeRepository.findById(employee.getId());

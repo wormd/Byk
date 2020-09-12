@@ -43,4 +43,8 @@ export class EmployeesListPageComponent implements OnInit {
   delete(id: string) {
     this.employeeService.delete(id);
   }
+
+  goAccount(id: string) {
+    this.router.navigate(['/account/'+id]);
+  }
 }

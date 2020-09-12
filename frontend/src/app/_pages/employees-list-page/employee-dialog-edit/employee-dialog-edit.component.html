@@ -27,7 +27,7 @@
       <div class="form-group">
         <label for="address">Since</label>
         <div class="input-group mr-2">
-          <input class="form-control" placeholder="yyyy-mm-dd"
+          <input class="form-control" placeholder="{{ employee.since ? employee.since:'yyyy-mm-dd' }}"
                  name="dp" [(ngModel)]="dateSinceModel"
                  ngbDatepicker
                  #d="ngbDatepicker">
@@ -39,7 +39,7 @@
       <div class="form-group">
         <label for="address">Until</label>
         <div class="input-group mr-2">
-          <input class="form-control" placeholder="yyyy-mm-dd"
+          <input class="form-control" placeholder="{{ employee.until ? employee.until:'yyyy-mm-dd' }}"
                  name="dp" [(ngModel)]="dateUntilModel"
                  ngbDatepicker
                  #d="ngbDatepicker">
@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-success" [disabled]="!_employeeForm.form.valid">Submit</button>
+      <button type="submit" class="btn btn-success" [disabled]="!_employeeForm.form.valid">Save</button>
       <button type="button" class="btn btn-outline-secondary" (click)="modal.close('cancel click')">Cancel</button>
     </div>
   </form>

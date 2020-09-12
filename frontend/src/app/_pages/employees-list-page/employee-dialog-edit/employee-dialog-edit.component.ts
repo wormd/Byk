@@ -2,7 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Employee} from '../../../_model/employee';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EmployeeService} from '../../../_service/employee.service';
-import {NgbActiveModal, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbDate, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-employee-dialog-edit',
@@ -20,20 +20,13 @@ export class EmployeeDialogEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.employee.since.getMonth());
-    this.dateSinceModel.year = this.employee.since.getFullYear();
-    this.dateSinceModel.month = this.employee.since.getMonth() + 1;
-    this.dateSinceModel.day = this.employee.since.getDay();
-    if (this.employee.until) {
-      this.dateUntilModel.year = this.employee.until.getFullYear();
-      this.dateUntilModel.month = this.employee.until.getMonth() + 1;
-      this.dateUntilModel.day = this.employee.until.getDay();
-    }
   }
 
   onSubmit() {
-    this.dateSinceModel ? this.employee.since = new Date(Date.UTC(this.dateSinceModel.year, this.dateSinceModel.month - 1, this.dateSinceModel.day)) :
-     this.employee.since = new Date();
+    const newEmployee = Object.assign({}, this.employee);
+    if (this.dateSinceModel) {
+      newEmployee.since = new Date(Date.UTC(this.dateSinceModel.year, this.dateSinceModel.month - 1, this.dateSinceModel.day))
+    }
     if (this.dateUntilModel) {
       this.employee.until = new Date(Date.UTC(this.dateSinceModel.year, this.dateSinceModel.month - 1, this.dateSinceModel.day));
     }
@@ -41,5 +34,4 @@ export class EmployeeDialogEditComponent implements OnInit {
       this.modal.close('Ok click');
     });
   }
-
 }
