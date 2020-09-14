@@ -6,6 +6,7 @@ import { AuthService } from '../../_service/auth.service';
 import {Transaction} from '../../_model/transaction';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EmployeeDialogAddComponent} from './employee-dialog-add/employee-dialog-add.component';
+import { EmployeeDialogEditComponent } from './employee-dialog-edit/employee-dialog-edit.component';
 
 @Component({
   selector: 'app-employees-list-page',
@@ -23,21 +24,27 @@ export class EmployeesListPageComponent implements OnInit {
     if (!this.authService.loggedIn()) {
       this.router.navigate(['/login']);
     }
-    this.employeeService.getAll().subscribe(data => {
+    this.employeeService.update()
+    this.employeeService.employees$.subscribe(data => {
       this.employees = data;
     });
   }
 
   public addDialog() {
     const addComp = this.modalService.open(EmployeeDialogAddComponent);
-    addComp.result.then(res => {
-      if (res === 'Ok click') {
-        this.employeeService.getAll();
-      }
-    });
+  }
+
+  editDialog(id) {
+    const editComp = this.modalService.open(EmployeeDialogEditComponent);
+
+    editComp.componentInstance.employee = this.employees.find(emp => +emp.id === +id);
   }
 
   delete(id: string) {
-    this.employeeService.delete(id).subscribe(data => this.employeeService.getAll());
+    this.employeeService.delete(id);
+  }
+
+  goAccount(id: string) {
+    this.router.navigate(['/account/'+id]);
   }
 }

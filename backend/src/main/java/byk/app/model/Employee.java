@@ -1,10 +1,9 @@
 package byk.app.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
+import byk.app.model.Account;
 
 @Entity
 public class Employee {
@@ -14,6 +13,13 @@ public class Employee {
     private Long id;
     private String name;
     private String surname;
+    private String phone;
+    private String address;
+    private LocalDate since;
+    private LocalDate until;
+
+    @OneToOne
+    private Account account;
 
     public Employee() {
     }
@@ -44,6 +50,44 @@ public class Employee {
         this.surname = surname;
     }
 
+    public String getPhone() {
+        return phone;
+    }
 
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public LocalDate getSince() {
+        return since;
+    }
+
+    public void setSince(LocalDate since) {
+        this.since = since;
+    }
+
+    public LocalDate getUntil() {
+        return until;
+    }
+
+    public void setUntil(LocalDate until) {
+        this.until = until;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }
 

@@ -9,6 +9,7 @@ import {AppComponent} from './app.component';
 
 import {EmployeesListPageComponent} from './_pages/employees-list-page/employees-list-page.component';
 import {EmployeeDialogAddComponent} from './_pages/employees-list-page/employee-dialog-add/employee-dialog-add.component';
+import {EmployeeDialogEditComponent} from './_pages/employees-list-page/employee-dialog-edit/employee-dialog-edit.component';
 import {AccountTransListComponent} from './_pages/accounts-list-page/account-page/account-trans-list/account-trans-list.component';
 import {AccountListComponent} from './tools-nav/account-list/account-list.component';
 import {TransactionFormComponent} from './tools-nav/transaction-form/transaction-form.component';
@@ -61,6 +62,7 @@ import { SuppliesPageComponent } from './_pages/supplies-page/supplies-page.comp
     RemindersPageComponent,
     InvoicesPageComponent,
     SuppliesPageComponent,
+    EmployeeDialogEditComponent,
   ],
   entryComponents: [
     ConfirmDialogComponent,

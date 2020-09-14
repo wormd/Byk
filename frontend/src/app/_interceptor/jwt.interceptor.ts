@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthService} from '../_service/auth.service';
 import {tap} from 'rxjs/operators';
@@ -27,7 +27,11 @@ export class JwtInterceptor implements HttpInterceptor {
     //   // redirect to login if not logged
     //   this.router.navigate(['login']);
     // }
-    return next.handle(request).pipe(tap(()  => {}, err => {
+    return next.handle(request).pipe(tap((event)  => {
+      // if (event instanceof HttpResponse && !environment.production) {
+      //   console.log("Reponse body: " + event.body)
+      // } TODO: Right now it returns [Object]s
+    }, err => {
       if (err instanceof HttpErrorResponse && err.status === 401) {
         localStorage.removeItem('token');
         // this.router.navigate(['/login']);

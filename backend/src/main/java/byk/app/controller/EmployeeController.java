@@ -1,6 +1,8 @@
 package byk.app.controller;
 
+import byk.app.model.Account;
 import byk.app.model.Employee;
+import byk.app.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import byk.app.repository.EmployeeRepository;
@@ -15,6 +17,9 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private AccountRepository accountRepository;
+
     @GetMapping//(produces = "application/json")
      public @ResponseBody Iterable<Employee> firstPage() {
         return employeeRepository.findAll();
@@ -27,12 +32,17 @@ public class EmployeeController {
 
     @PostMapping
     public @ResponseBody Employee create(@RequestBody Employee employee) {
-         employeeRepository.save(employee);
-         return employee;
+        Account acc = new Account();
+        acc.setName(employee.getName()+" "+employee.getSurname());
+        acc.setDescr("Created for "+employee.getName()+" "+employee.getSurname()+ ", employed since "+employee.getSince());
+        employee.setAccount(acc);
+        accountRepository.save(acc);
+        employeeRepository.save(employee);
+        return employee;
     }
 
-    @PutMapping("/{id}")
-    public @ResponseBody Employee replace(@PathVariable("id") Long id, @RequestBody Employee employee) {
+    @PutMapping
+    public @ResponseBody Employee update(@RequestBody Employee employee) {
         return employeeRepository.save(employee);
         // Optional<Employee> target = employeeRepository.findById(employee.getId());
 

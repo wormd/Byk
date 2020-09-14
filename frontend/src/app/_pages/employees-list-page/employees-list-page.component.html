@@ -1,20 +1,30 @@
 <div class="col-lg-12">
   <div>
-    <a (click)="addDialog()" class="">Add Employee</a>
+    <button class="btn btn-outline-primary" (click)="addDialog()">Add Employee</button>
   </div>
-  <table class="table table-bordered table-striped">
+  <table class="table table-bordered table-striped mt-2">
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Surname</th>
-      <th scope="col"></th>
+      <th scope="col" style="width: 1%">#</th>
+      <th scope="col" style="width: 1%">Name</th>
+      <th scope="col" style="width: 1%">Surname</th>
+      <th scope="col" style="width: 2%">Phone</th>
+      <th scope="col" >Address</th>
+      <th scope="col" style="width: 2%">Since</th>
+      <th scope="col" style="width: 1%"></th>
     </tr>
   <tbody>
     <tr *ngFor="let employee of employees">
       <td>{{ employee.id }}</td>
       <td>{{ employee.name }}</td>
       <td>{{ employee.surname }}</td>
-      <td><button type="button" class="close" (click)="delete(employee.id)">&times;</button></td>
+      <td>{{ employee.phone }}</td>
+      <td>{{ employee.address }}</td>
+      <td>{{ employee.since }}</td>
+      <td class="text-nowrap">
+        <button type="button" class="btn fa fa-file-text bg-transparent" (click)="goAccount(employee.account.id)"></button>
+        <button type="button" class="btn fa fa-edit bg-transparent" (click)="editDialog(employee.id)"></button> <!-- TODO: Add edit -->
+        <button type="button" class="btn fa fa-times bg-transparent p-2" (click)="delete(employee.id)"></button>
+      </td>
     </tr>
   </tbody>
   </table>
