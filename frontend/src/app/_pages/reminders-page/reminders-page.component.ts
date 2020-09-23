@@ -13,26 +13,13 @@ import { Reminder } from 'src/app/_model/reminder';
 
 export class RemindersPageComponent implements OnInit {
 
-  reminders: Reminder[];
-
   constructor(private router: Router, private authService: AuthService, 
-    private modalService: NgbModal, private reminderService: RemindersService) { }
+    public reminderService: RemindersService) { }
 
   ngOnInit() {
     if (!this.authService.loggedIn()) {
       this.router.navigate(['/login']);
     }
     this.reminderService.update()
-    this.reminderService.reminders$.subscribe(d => {
-      this.reminders = d;
-    });
-  }
-
-  editDialog(id: string) {
-// TODO Implement
-  }
-
-  delete(id: string) {
-// TODO Implement
   }
 }

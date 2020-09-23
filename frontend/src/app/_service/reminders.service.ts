@@ -1,10 +1,18 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {ReplaySubject} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import { Reminder} from '../_model/reminder';
 import { environment } from '../../environments/environment';
 import { AlertService } from './alert.service';
+
+export function dict2Params(dict) {
+  var params = new HttpParams();
+  for(let key in dict) {
+    params = params.append(key, dict[key]);
+  }
+  return params;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +20,24 @@ import { AlertService } from './alert.service';
 export class RemindersService {
 
   private url: string;
-  private _list = new ReplaySubject<Reminder[]>();
-  private _reminders: Reminder[];
+  private _short = new ReplaySubject<Reminder[]>();
+  private _long = new ReplaySubject<Reminder[]>();
+  private _done = new ReplaySubject<Reminder[]>();
 
   constructor(private http: HttpClient, private alertService: AlertService) {
     this.url = environment.apiUrl + 'reminders/';
   }
 
-  get reminders$() {
-    if (!this._reminders) { this.update(); }
-    return this._list.asObservable();
+  get short$() {
+    return this._short.asObservable();
+  }
+
+  get long$() {
+    return this._long.asObservable();
+  }
+
+  get done$() {
+    return this._done.asObservable();
   }
 
   public add(emp: Reminder) {
@@ -47,9 +63,15 @@ export class RemindersService {
   }
 
   public update() {
-    this.http.get<Reminder[]>(this.url).subscribe(d => {
-      this._reminders = d;
-      this._list.next(d);
+    // 60*60*24*7 = 1 week
+    this.http.get<Reminder[]>(this.url, { params: dict2Params({afters: '604800'}) }).subscribe(d => {
+      this._short.next(d);
+    });
+    this.http.get<Reminder[]>(this.url, { params: dict2Params({befores: '604800'}) }).subscribe(d => {
+      this._long.next(d);
+    });
+    this.http.get<Reminder[]>(this.url, { params: dict2Params({done: true}) }).subscribe(d => {
+      this._done.next(d);
     });
   }
 }

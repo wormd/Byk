@@ -1,6 +1,8 @@
 export class Reminder {
     id: string;
     descr: string;
-    due: Date;
+    dueBy: Date;
     created: Date;
+    cycle: string;
+    cycletime: string;
 }

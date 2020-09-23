@@ -13,16 +13,28 @@ export class ReminderQuickAddComponent implements OnInit {
 
   dateModel: NgbDateStruct;
   reminder = new Reminder();
-  cycle = false;
+  periods = [
+    {value:604800,desc:'1 week'},
+    {value:1209600,desc:'2 week'},
+    {value:1813200,desc:'3 week'},
+    {value:2592000,desc:'1 month'},
+    {value:5184000,desc:'2 months'},
+    {value:7776000,desc:'3 months'},
+  ]
 
   constructor(public alertService: AlertService, private calendar: NgbCalendar,
-    private reminderService: RemindersService) { }
+    private reminderService: RemindersService) {
+
+    }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    this.reminder.due = new Date(Date.UTC(this.dateModel.year, this.dateModel.month - 1, this.dateModel.day));
+    this.reminder.dueBy = new Date(Date.UTC(this.dateModel.year, this.dateModel.month - 1, this.dateModel.day));
+    if (!this.reminder.cycle) {
+      this.reminder.cycletime = null;
+    }
     this.reminderService.add(this.reminder).then(() => this.reminder = new Reminder());
   }
 }

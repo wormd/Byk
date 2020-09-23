@@ -13,74 +13,10 @@
     </div>
 
     <h3> Short due </h3>
-    <table class="table table-striped mt-2">
-      <tr>
-        <th scope="col" style="width: 1%">Description</th>
-        <th scope="col" style="width: 1%">Due</th>
-        <th scope="col" style="width: 2%">Created</th>
-        <th scope="col" style="width: 2%"></th>
-      </tr>
-    <tbody>
-      <tr *ngFor="let rem of reminders">
-        <td>{{ rem.descr }}</td>
-        <td>{{ rem.due }}</td>
-        <td>{{ rem.created }}</td>
-        <td class="text-nowrap">
-          <button type="button" class="btn fa fa-edit bg-transparent" (click)="editDialog(rem.id)"></button>
-          <button type="button" class="btn fa fa-times bg-transparent p-2" (click)="delete(rem.id)"></button>
-        </td>
-      </tr>
-      <tr *ngIf="reminders && reminders.length === 0" role="status">
-        <td colspan="4" class="text-center">This period is empty</td>
-      </tr>
-    </tbody>
-    </table>
+    <app-reminders-page-list [obs]="reminderService.short$"></app-reminders-page-list>
     <h3> Long due </h3>
-    <table class="table table-striped mt-2">
-      <tr>
-        <th scope="col" style="width: 1%">Description</th>
-        <th scope="col" style="width: 1%">Due</th>
-        <th scope="col" style="width: 2%">Created</th>
-        <th scope="col" style="width: 2%"></th>
-      </tr>
-    <tbody>
-      <tr *ngFor="let rem of reminders">
-        <td>{{ rem.descr }}</td>
-        <td>{{ rem.due }}</td>
-        <td>{{ rem.created }}</td>
-        <td class="text-nowrap">
-          <button type="button" class="btn fa fa-edit bg-transparent" (click)="editDialog(rem.id)"></button>
-          <button type="button" class="btn fa fa-times bg-transparent p-2" (click)="delete(rem.id)"></button>
-        </td>
-      </tr>
-      <tr *ngIf="reminders && reminders.length === 0" role="status">
-        <td colspan="4" class="text-center">This period is empty</td>
-      </tr>
-    </tbody>
-    </table>
-
+    <app-reminders-page-list [obs]="reminderService.long$"></app-reminders-page-list>
     <h3> Done </h3>
-    <table class="table table-striped mt-2">
-      <tr>
-        <th scope="col" style="width: 1%">Description</th>
-        <th scope="col" style="width: 1%">Due</th>
-        <th scope="col" style="width: 2%">Created</th>
-        <th scope="col" style="width: 2%"></th>
-      </tr>
-    <tbody>
-      <tr *ngFor="let rem of reminders">
-        <td>{{ rem.descr }}</td>
-        <td>{{ rem.due }}</td>
-        <td>{{ rem.created }}</td>
-        <td class="text-nowrap">
-          <button type="button" class="btn fa fa-edit bg-transparent" (click)="editDialog(rem.id)"></button>
-          <button type="button" class="btn fa fa-times bg-transparent p-2" (click)="delete(rem.id)"></button>
-        </td>
-      </tr>
-      <tr *ngIf="reminders && reminders.length === 0" role="status">
-        <td colspan="4" class="text-center">This period is empty</td>
-      </tr>
-    </tbody>
-    </table>
+    <app-reminders-page-list [obs]="reminderService.done$"></app-reminders-page-list>
   </div>
   

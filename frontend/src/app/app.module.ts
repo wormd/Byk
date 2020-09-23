@@ -34,6 +34,8 @@ import { RemindersPageComponent } from './_pages/reminders-page/reminders-page.c
 import { InvoicesPageComponent } from './_pages/invoices-page/invoices-page.component';
 import { SuppliesPageComponent } from './_pages/supplies-page/supplies-page.component';
 import { ReminderQuickAddComponent } from './_pages/reminders-page/reminder-quick-add/reminder-quick-add.component';
+import { SToStringPipe } from './_pipe/s-to-string.pipe';
+import { RemindersPageListComponent } from './_pages/reminders-page/reminders-page-list/reminders-page-list.component';
 
 
 @NgModule({
@@ -65,6 +67,8 @@ import { ReminderQuickAddComponent } from './_pages/reminders-page/reminder-quic
     SuppliesPageComponent,
     EmployeeDialogEditComponent,
     ReminderQuickAddComponent,
+    SToStringPipe,
+    RemindersPageListComponent,
   ],
   entryComponents: [
     ConfirmDialogComponent,

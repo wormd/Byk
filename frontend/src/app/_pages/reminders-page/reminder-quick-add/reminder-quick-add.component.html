@@ -19,19 +19,17 @@
         </div>
       </div>
 
-      <input type="checkbox" [(ngModel)]="cycle" class="form-control mr-2" name="cycle">
+      <input type="checkbox" [(ngModel)]="reminder.cycle" class="form-control mr-2" name="cycle">
       <label for="cycle" class="mr-2">Cycle</label>
 
-      <select class="form-control mr-2" [disabled]="!cycle">
-        <option value="6">1 week</option>
-        <option value="66">1 month</option>
-        <option value="661">2 months</option>
-        <option value="6613">3 months</option>
-        <option value="6677">1 year</option>
+      <select class="form-control mr-2" [disabled]="!reminder.cycle" [(ngModel)]="reminder.cycletime" name="cycletime">
+        <option [value]="" hidden selected>Select period </option> 
+        <!-- ^ TODO: Not working - find a solution -->
+        <option *ngFor="let item of periods" [value]="item.value">{{item.desc}}</option>
       </select>
   
       <button type="submit" class="btn btn-success" [disabled]="!lineForm.form.valid">Add</button>
-  
+        {{ reminder | json }}
     </form>
   </div>
   
