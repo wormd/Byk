@@ -10,7 +10,7 @@ public class Reminder {
     private long Id;
     private String descr;
     private LocalDateTime created;
-    private LocalDateTime due;
+    private LocalDateTime dueBy;
     private Boolean cycle;
     private Boolean done;
     private long cycletime;
@@ -19,6 +19,7 @@ public class Reminder {
     private Payment payment;
 
     public Reminder() {
+        this.setCreated(LocalDateTime.now());
         this.cycle = false;
         this.done = false;
     }
@@ -47,12 +48,12 @@ public class Reminder {
         this.created = created;
     }
 
-    public LocalDateTime getDue() {
-        return due;
+    public LocalDateTime getDueBy() {
+        return dueBy;
     }
 
-    public void setDue(LocalDateTime due) {
-        this.due = due;
+    public void setDueBy(LocalDateTime dueBy) {
+        this.dueBy = dueBy;
     }
 
     public Payment getPayment() {
