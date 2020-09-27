@@ -1,6 +1,6 @@
 <div class="card-body">
     <form class="form-inline card-text" (ngSubmit)="onSubmit()" #lineForm="ngForm">
-      <input type="text" class="form-control mr-2"
+      <input type="text" class="form-control mr-2" size="50"
              placeholder="Description"
              name="descr"
 
@@ -9,7 +9,7 @@
 
              <!-- TODO: date should be required to make Add button valid -->
       <div class="input-group mr-2">   
-        <input class="form-control" placeholder="Due date"
+        <input class="form-control" placeholder="Due date" size="10"
                 name="dp" [(ngModel)]="dateModel"
                 ngbDatepicker
                 #d="ngbDatepicker">

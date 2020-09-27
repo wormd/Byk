@@ -1,9 +1,5 @@
-<div *ngIf="user" class="">
-  <h4>Hello, {{ user.username }}</h4>
-  <div *ngFor="let account of prefs" class="card col-sm-2 d-inline-flex m-2">
-    <div class="card-body">
-      <h5 class="card-title">{{ account.name }}</h5>
-      <h6 [ngClass]="{'text-danger':account.total<0}">{{ account.total | beautifyNum }}</h6>
-    </div>
-  </div>
+<div class="">
+  <h3 class="mb-5">Hello, {{ user?.username }}</h3>
+  <app-expired-reminders></app-expired-reminders>
+  <app-pinned-accounts></app-pinned-accounts>
 </div>

@@ -41,6 +41,8 @@ import { ExpiredPipe } from './_pipe/expired.pipe';
 import { VarDirective } from './_directive/var.directive';
 import { RemindersPageDoneListComponent } from './_pages/reminders-page/reminders-page-done-list/reminders-page-done-list.component';
 import { RemindersDialogEditComponent } from './_pages/reminders-page/reminders-dialog-edit/reminders-dialog-edit.component';
+import { PinnedAccountsComponent } from './_pages/homepage/pinned-accounts/pinned-accounts.component';
+import { ExpiredRemindersComponent } from './_pages/homepage/expired-reminders/expired-reminders.component';
 
 
 @NgModule({
@@ -79,6 +81,8 @@ import { RemindersDialogEditComponent } from './_pages/reminders-page/reminders-
     VarDirective,
     RemindersPageDoneListComponent,
     RemindersDialogEditComponent,
+    PinnedAccountsComponent,
+    ExpiredRemindersComponent,
   ],
   entryComponents: [
     ConfirmDialogComponent,

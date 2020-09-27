@@ -8,7 +8,7 @@ import {AlertService} from '../_service/alert.service';
 
 @Component({
   selector: 'app-account-selector',
-  template: `<input id='{{placeholder}}' name="{{ modelName }}" type="text" class="form-control"
+  template: `<input id='{{placeholder}}' name="{{ modelName }}" type="text" class="form-control" size="10"
                         placeholder="{{placeholder}}"
                         [(ngModel)]="accountModel"
                         [ngbTypeahead]="accountSearch"

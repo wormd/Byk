@@ -1,0 +1,25 @@
+<div class="ml-2">
+  <h4>Expired reminders</h4>
+  <table class="table mt-2 col-5">
+      <tr>
+        <th scope="col" style="width: 10%" class="text-nowrap border-top-0">Description</th>
+        <th scope="col" style="width: 2%" class="text-nowrap border-top-0">Due date</th>
+        <th scope="col" style="width: 2%" class="text-nowrap border-top-0"></th>
+      </tr>
+    <tbody>
+      <ng-container *ngIf="(reminders$ | async) as items; else loading">
+        <tr *ngFor="let rem of items;" id="{{rem.id}}">
+          <td class="text-nowrap">{{ rem.descr }}</td>
+          <td class="text-nowrap">{{ rem.dueBy | slice:0:10 }}</td>
+          <td class="text-nowrap">
+            <button type="button" title="Done" class="btn fa fa-check bg-transparent" (click)="setDone(rem.id, rem.descr)"></button>
+          </td>
+        </tr>
+        <tr *ngIf="items.length === 0">
+          <td colspan="3">No expired reminders!</td>
+        </tr>
+      </ng-container>
+      <ng-template #loading></ng-template>
+    </tbody>
+  </table>
+</div>

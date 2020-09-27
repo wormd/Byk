@@ -40,6 +40,10 @@ export class RemindersService {
     return this._done.asObservable();
   }
 
+  public fetch(dict) {
+    return this.http.get<Reminder[]>(this.url, { params: dict2Params(dict) });
+  }
+
   public add(emp: Reminder) {
     return this.http.post<Reminder>(this.url, emp).pipe(tap(() => {
       this.update();
@@ -64,10 +68,10 @@ export class RemindersService {
 
   public update() {
     // 60*60*24*7 = 1 week
-    this.http.get<Reminder[]>(this.url, { params: dict2Params({afters: '604800'}) }).subscribe(d => {
+    this.http.get<Reminder[]>(this.url, { params: dict2Params({afters: 604800}) }).subscribe(d => {
       this._short.next(d);
     });
-    this.http.get<Reminder[]>(this.url, { params: dict2Params({befores: '604800'}) }).subscribe(d => {
+    this.http.get<Reminder[]>(this.url, { params: dict2Params({befores: 604800}) }).subscribe(d => {
       this._long.next(d);
     });
     this.http.get<Reminder[]>(this.url, { params: dict2Params({done: true}) }).subscribe(d => {
