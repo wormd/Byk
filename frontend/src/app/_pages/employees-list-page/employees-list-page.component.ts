@@ -34,10 +34,10 @@ export class EmployeesListPageComponent implements OnInit {
     const addComp = this.modalService.open(EmployeeDialogAddComponent);
   }
 
-  editDialog(id) {
+  editDialog(employee) {
     const editComp = this.modalService.open(EmployeeDialogEditComponent);
 
-    editComp.componentInstance.employee = this.employees.find(emp => +emp.id === +id);
+    editComp.componentInstance.input = employee;
   }
 
   delete(id: string) {

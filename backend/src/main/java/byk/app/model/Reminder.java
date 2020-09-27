@@ -11,6 +11,7 @@ public class Reminder {
     private String descr;
     private LocalDateTime created;
     private LocalDateTime dueBy;
+    private LocalDateTime doneDate;
     private Boolean cycle;
     private Boolean done;
     private long cycletime;
@@ -22,6 +23,15 @@ public class Reminder {
         this.setCreated(LocalDateTime.now());
         this.cycle = false;
         this.done = false;
+    }
+
+    public Reminder(Reminder copyFrom) {
+        this();
+        this.descr = copyFrom.getDescr();
+        // should the created date be from parent reminder or not?
+        this.created = copyFrom.getCreated();
+        this.cycle = copyFrom.getCycle();
+        this.cycletime = copyFrom.getCycletime();
     }
 
     public long getId() {
@@ -80,11 +90,29 @@ public class Reminder {
         this.done = done;
     }
 
+    public void done() {
+        this.setDone(true);
+        this.setDoneDate(LocalDateTime.now());
+    }
+
+    public void undone() {
+        this.setDone(false);
+        this.setDoneDate(null);
+    }
+
     public long getCycletime() {
         return cycletime;
     }
 
     public void setCycletime(long cycletime) {
         this.cycletime = cycletime;
+    }
+
+    public LocalDateTime getDoneDate() {
+        return doneDate;
+    }
+
+    public void setDoneDate(LocalDateTime doneDate) {
+        this.doneDate = doneDate;
     }
 }

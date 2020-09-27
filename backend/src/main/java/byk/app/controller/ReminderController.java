@@ -9,10 +9,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Optional;
 
@@ -38,7 +37,8 @@ public class ReminderController {
         if (befores != null) before = date.plus(befores, ChronoUnit.SECONDS);
         if (done == null) done = false;
 
-        remPage = reminderRepository.findAllByParams(after, before, done, PageRequest.of(page, size, Sort.by("dueBy").ascending()));
+        remPage = reminderRepository.findAllByParams(after, before, done,
+                PageRequest.of(page, size, Sort.by("dueBy").ascending()));
         return ResponseEntity.ok(remPage.getContent());
     }
 
@@ -66,4 +66,27 @@ public class ReminderController {
     public void put(@RequestBody Reminder reminder) {
         reminderRepository.save(reminder);
     }
+
+    @GetMapping("/{id}/done")
+    public @ResponseBody Reminder done(@PathVariable Long id) {
+        Reminder rem = reminderRepository.getOne(id);
+        if (rem.getCycle()) {
+            LocalDateTime nextDueDate = rem.getDueBy().plusSeconds(rem.getCycletime());
+            Reminder nextRem = new Reminder(rem);
+            nextRem.setDueBy(nextDueDate);
+            reminderRepository.save(nextRem);
+        }
+        rem.done();
+        reminderRepository.save(rem);
+        return rem;
+    }
+
+    @GetMapping("/{id}/undone")
+    public @ResponseBody Reminder undone(@PathVariable Long id) {
+        Reminder rem = reminderRepository.getOne(id);
+        rem.undone();
+        reminderRepository.save(rem);
+        return rem;
+    }
+
 }

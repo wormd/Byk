@@ -1,0 +1,43 @@
+<form class="" (ngSubmit)="onSubmit()" #_reminderForm="ngForm">
+    <div class="modal-header">
+      <h4 class="modal-title d-flex" id="modal-title">Edit Reminder</h4>
+      <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close('close')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Description</label>
+        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="reminder.descr" required #_name="ngModel">
+      </div>
+      <div [hidden]="_name.valid || _name.pristine" class="alert alert-danger">Description Required</div>
+      <div class="form-group">
+        <label for="address">Due date</label>
+        <div class="input-group mr-2">
+          <input class="form-control" placeholder="{{ reminder.dueBy ? (reminder?.dueBy | slice:0:10) :'yyyy-mm-dd' }}"
+                 name="dp" [(ngModel)]="dueByModel"
+                 ngbDatepicker
+                 #d="ngbDatepicker">
+          <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+      <div class="form=group">
+        <label for="cycle" class="mr-2">Cycle</label>
+        <div class="form-inline">
+          <input type="checkbox" [(ngModel)]="reminder.cycle" class="form-control mr-2" name="cycle">
+          <select class="form-control mr-2" [disabled]="!reminder.cycle" [(ngModel)]="reminder.cycletime" name="cycletime">
+              <option [value]="" hidden selected>Select period </option> 
+              <!-- ^ TODO: Not working - find a solution -->
+              <option *ngFor="let item of periods" [value]="item.value">{{item.desc}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-success" [disabled]="!_reminderForm.form.valid">Save</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="modal.close('cancel')">Cancel</button>
+    </div>
+  </form>
+  

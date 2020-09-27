@@ -58,7 +58,7 @@ export class RemindersService {
   public delete(id: string) {
     return this.http.delete(this.url + id, {responseType: 'text'}).pipe(tap(() => {
       this.update();
-      this.alertService.message("Reminder delete.", "success");
+      this.alertService.message("Reminder deleted.", "success");
     }, err => this.alertService.message("Reminder couldn't be deleted.", "danger"))).toPromise();
   }
 
@@ -73,5 +73,32 @@ export class RemindersService {
     this.http.get<Reminder[]>(this.url, { params: dict2Params({done: true}) }).subscribe(d => {
       this._done.next(d);
     });
+  }
+
+  public done(id: string, descr: string) {
+    return this.http.get<Reminder>(this.url+id+'/done').pipe(tap(() => {
+      this.update();
+      this.alertService.message(descr+' is done', 'success');
+    }, err => this.alertService.message("Couldn't set `"+descr+"` to done.", "danger"))).toPromise();
+  }
+
+  public undone(id: string, descr: string) {
+    return this.http.get<Reminder>(this.url+id+'/undone').pipe(tap(() => {
+      this.update();
+      this.alertService.message(descr+' has been set undone', 'success');
+    }, err => this.alertService.message("Couldn't set `"+descr+"` to undone.", "danger"))).toPromise();
+  }
+
+  public clone(rem: Reminder) {
+    const clone = Object.assign({}, rem);
+    delete clone.id, clone.doneDate;
+    clone.done = "false";
+    console.log(clone);
+    return this.http.post<Reminder>(this.url, clone).pipe(tap(() => {
+      this.update();
+      this.alertService.message(clone.descr+' has been copied and set undone', 'success');
+    }, err => {
+      this.alertService.message("Couldn't copy `"+clone.descr+'`.', 'danger');
+    })).toPromise();
   }
 }

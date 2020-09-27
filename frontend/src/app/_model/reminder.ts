@@ -4,5 +4,7 @@ export class Reminder {
     dueBy: Date;
     created: Date;
     cycle: string;
+    done: string;
     cycletime: string;
+    doneDate: Date;
 }

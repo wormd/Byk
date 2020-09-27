@@ -22,7 +22,7 @@
       <td>{{ employee.since }}</td>
       <td class="text-nowrap">
         <button type="button" class="btn fa fa-file-text bg-transparent" (click)="goAccount(employee.account.id)"></button>
-        <button type="button" class="btn fa fa-edit bg-transparent" (click)="editDialog(employee.id)"></button> <!-- TODO: Add edit -->
+        <button type="button" class="btn fa fa-edit bg-transparent" (click)="editDialog(employee)"></button> <!-- TODO: Add edit -->
         <button type="button" class="btn fa fa-times bg-transparent p-2" (click)="delete(employee.id)"></button>
       </td>
     </tr>

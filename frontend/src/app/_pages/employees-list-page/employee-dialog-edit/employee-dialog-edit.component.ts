@@ -11,7 +11,8 @@ import {NgbActiveModal, NgbDate, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap
 })
 export class EmployeeDialogEditComponent implements OnInit {
 
-  @Input() employee: Employee;
+  @Input() input: Employee;
+  employee: Employee;
   dateSinceModel: NgbDateStruct;
   dateUntilModel: NgbDateStruct;
   
@@ -20,18 +21,18 @@ export class EmployeeDialogEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.employee = Object.assign({}, this.input);
   }
 
   onSubmit() {
-    const newEmployee = Object.assign({}, this.employee);
     if (this.dateSinceModel) {
-      newEmployee.since = new Date(Date.UTC(this.dateSinceModel.year, this.dateSinceModel.month - 1, this.dateSinceModel.day))
+      this.employee.since = new Date(Date.UTC(this.dateSinceModel.year, this.dateSinceModel.month - 1, this.dateSinceModel.day))
     }
     if (this.dateUntilModel) {
       this.employee.until = new Date(Date.UTC(this.dateSinceModel.year, this.dateSinceModel.month - 1, this.dateSinceModel.day));
     }
     this.employeeService.edit(this.employee).then(data => {
-      this.modal.close('Ok click');
+      this.modal.close('submit');
     });
   }
 }

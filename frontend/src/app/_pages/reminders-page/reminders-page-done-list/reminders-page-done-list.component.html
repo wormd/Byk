@@ -1,25 +1,25 @@
 <table class="table table-striped mt-2 col-md-8">
-    <tr>
+    <tr class="">
       <th scope="col" style="width: 10%" class="text-nowrap">Description</th>
-      <th scope="col" style="width: 2%" class="text-nowrap">Time left</th>
+      <th scope="col" style="width: 2%" class="text-nowrap">Done date</th>
       <th scope="col" style="width: 2%" class="text-nowrap">Due date</th>
       <th scope="col" style="width: 2%" class="text-nowrap">Created</th>
-      <th scope="col" style="width: 2%" class="text-nowrap">Cycle</th>
-      <th scope="col" style="width: 2%" class="text-nowrap"></th>
+      <th scope="col" style="width: 2%" class="text-nowrap">Cycle time</th>
+
+      <th scope="col" style="width: 2%"></th>
     </tr>
   <tbody>
     <ng-container *ngIf="(obs | async) as items; else loading">
       <tr *ngFor="let rem of items;" id="{{rem.id}}">
         <td class="text-nowrap">{{ rem.descr }}</td>
-        <td class="text-nowrap" *appVar="(rem.dueBy | toUnixt) - (today | toUnixt) | sToString | expired as timeleft"
-        [ngStyle]= "{ color: timeleft === 'Expired' ? 'red' : ''}">{{ timeleft }}</td>
+        <td class="text-nowrap">{{ rem.doneDate | date:'yyyy-MM-dd hh:mm' }}</td>
         <td class="text-nowrap">{{ rem.dueBy | slice:0:10 }}</td>
         <td class="text-nowrap">{{ rem.created | date:'yyyy-MM-dd hh:mm'}}</td>
         <td class="text-nowrap">{{ rem.cycletime | sToString}}</td>
         <td class="text-nowrap">
-          <button type="button" title="Done" class="btn fa fa-check bg-transparent" (click)="reminderService.done(rem.id, rem.descr)"></button>
-          <button type="button" title="Edit" class="btn fa fa-edit bg-transparent" (click)="editDialog(rem)"></button>
-          <button type="button" title="Delete" class="btn fa fa-times bg-transparent p-2" (click)="reminderService.delete(rem.id)"></button>
+          <button type="button" title="Clone" class="btn fa fa-clone bg-transparent" (click)="reminderService.clone(rem)"></button>
+          <button type="button" title="Undone" class="btn fa fa-arrow-up bg-transparent" (click)="reminderService.undone(rem.id, rem.descr)"></button>
+          <button type="button" title="Delete" class="btn fa fa-times bg-transparent" (click)="reminderService.delete(rem.id)"></button>
         </td>
       </tr>
       <tr *ngIf="items?.length === 0" role="status">
