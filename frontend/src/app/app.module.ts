@@ -33,6 +33,14 @@ import { SignupFormPageComponent } from './_pages/signup-form-page/signup-form-p
 import { RemindersPageComponent } from './_pages/reminders-page/reminders-page.component';
 import { InvoicesPageComponent } from './_pages/invoices-page/invoices-page.component';
 import { SuppliesPageComponent } from './_pages/supplies-page/supplies-page.component';
+import { ReminderQuickAddComponent } from './_pages/reminders-page/reminder-quick-add/reminder-quick-add.component';
+import { SToStringPipe } from './_pipe/s-to-string.pipe';
+import { RemindersPageListComponent } from './_pages/reminders-page/reminders-page-list/reminders-page-list.component';
+import { ToUnixtPipe } from './_pipe/to-unixt.pipe';
+import { ExpiredPipe } from './_pipe/expired.pipe';
+import { VarDirective } from './_directive/var.directive';
+import { RemindersPageDoneListComponent } from './_pages/reminders-page/reminders-page-done-list/reminders-page-done-list.component';
+import { RemindersDialogEditComponent } from './_pages/reminders-page/reminders-dialog-edit/reminders-dialog-edit.component';
 
 
 @NgModule({
@@ -63,6 +71,14 @@ import { SuppliesPageComponent } from './_pages/supplies-page/supplies-page.comp
     InvoicesPageComponent,
     SuppliesPageComponent,
     EmployeeDialogEditComponent,
+    ReminderQuickAddComponent,
+    SToStringPipe,
+    RemindersPageListComponent,
+    ToUnixtPipe,
+    ExpiredPipe,
+    VarDirective,
+    RemindersPageDoneListComponent,
+    RemindersDialogEditComponent,
   ],
   entryComponents: [
     ConfirmDialogComponent,

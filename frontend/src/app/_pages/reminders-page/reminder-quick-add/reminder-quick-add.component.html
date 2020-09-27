@@ -1,0 +1,34 @@
+<div class="card-body">
+    <form class="form-inline card-text" (ngSubmit)="onSubmit()" #lineForm="ngForm">
+      <input type="text" class="form-control mr-2"
+             placeholder="Description"
+             name="descr"
+
+             [(ngModel)]="reminder.descr"
+             required/>
+
+             <!-- TODO: date should be required to make Add button valid -->
+      <div class="input-group mr-2">   
+        <input class="form-control" placeholder="Due date"
+                name="dp" [(ngModel)]="dateModel"
+                ngbDatepicker
+                #d="ngbDatepicker">
+
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+        </div>
+      </div>
+
+      <input type="checkbox" [(ngModel)]="reminder.cycle" class="form-control mr-2" name="cycle">
+      <label for="cycle" class="mr-2">Cycle</label>
+
+      <select class="form-control mr-2" [disabled]="!reminder.cycle" [(ngModel)]="reminder.cycletime" name="cycletime">
+        <option [value]="" hidden selected>Select period </option> 
+        <!-- ^ TODO: Not working - find a solution -->
+        <option *ngFor="let item of periods" [value]="item.value">{{item.desc}}</option>
+      </select>
+  
+      <button type="submit" class="btn btn-success" [disabled]="!lineForm.form.valid">Add</button>
+    </form>
+  </div>
+  

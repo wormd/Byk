@@ -94,6 +94,7 @@ export class TransactionService {
       const ids = filter.accounts.map(a => a.id);
       params = params.append('ids', ids.join(','));
     }
+    console.log('params: '+params)
     return params;
   }
 
