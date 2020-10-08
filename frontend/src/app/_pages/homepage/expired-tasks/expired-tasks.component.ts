@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { Reminder } from 'src/app/_model/reminder';
-import { RemindersService } from 'src/app/_service/reminders.service';
+import { Task } from 'src/app/_model/task';
+import { TasksService } from 'src/app/_service/tasks.service';
 
 @Component({
   selector: 'app-expired-reminders',
-  templateUrl: './expired-reminders.component.html',
-  styleUrls: ['./expired-reminders.component.css']
+  templateUrl: './expired-tasks.component.html',
+  styleUrls: ['./expired-tasks.component.css']
 })
-export class ExpiredRemindersComponent implements OnInit {
+export class ExpiredTasksComponent implements OnInit {
 
-  reminders$: Observable<Reminder[]>;
+  reminders$: Observable<Task[]>;
 
-  constructor(public reminderService: RemindersService) { }
+  constructor(public reminderService: TasksService) { }
 
   ngOnInit(): void {
     this.fetchData();

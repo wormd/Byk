@@ -9,7 +9,7 @@ import {TransactionsPageComponent} from './_pages/transactions-page/transactions
 import {CashbookPageComponent} from './_pages/cashbook-page/cashbook-page.component';
 import { SignupFormPageComponent } from './_pages/signup-form-page/signup-form-page.component';
 import { EmployeeDialogAddComponent } from './_pages/employees-list-page/employee-dialog-add/employee-dialog-add.component';
-import { RemindersPageComponent } from './_pages/reminders-page/reminders-page.component';
+import { TasksPageComponent } from './_pages/tasks-page/tasks-page.component';
 import { InvoicesPageComponent } from './_pages/invoices-page/invoices-page.component';
 import { SuppliesPageComponent } from './_pages/supplies-page/supplies-page.component';
 
@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'transactions', component: TransactionsPageComponent },
   { path: 'signup', component: SignupFormPageComponent },
-  { path: 'reminders', component: RemindersPageComponent },
+  { path: 'tasks', component: TasksPageComponent },
   { path: 'invoices', component: InvoicesPageComponent },
   { path: 'supplies', component: SuppliesPageComponent },
 ];
