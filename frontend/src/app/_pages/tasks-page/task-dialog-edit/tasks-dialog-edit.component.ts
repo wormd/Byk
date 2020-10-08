@@ -1,22 +1,22 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { Reminder } from 'src/app/_model/reminder';
-import { RemindersService } from 'src/app/_service/reminders.service';
-import { periods } from '../reminder-quick-add/reminder-quick-add.component';
+import { Task } from 'src/app/_model/task';
+import { TasksService } from 'src/app/_service/tasks.service';
+import { periods } from '../task-quick-add/tasks-quick-add.component';
 
 @Component({
   selector: 'app-reminders-dialog-edit',
-  templateUrl: './reminders-dialog-edit.component.html',
-  styleUrls: ['./reminders-dialog-edit.component.css']
+  templateUrl: './tasks-dialog-edit.component.html',
+  styleUrls: ['./tasks-dialog-edit.component.css']
 })
-export class RemindersDialogEditComponent implements OnInit {
+export class TasksDialogEditComponent implements OnInit {
 
-  @Input() input: Reminder;
-  reminder: Reminder;
+  @Input() input: Task;
+  reminder: Task;
   dueByModel: NgbDateStruct;
   periods = periods;
 
-  constructor(private reminderService: RemindersService, public modal: NgbActiveModal) { 
+  constructor(private reminderService: TasksService, public modal: NgbActiveModal) {
   }
 
   ngOnInit(): void {

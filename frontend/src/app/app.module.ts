@@ -30,19 +30,19 @@ import {AccountSelectorComponent} from './_util/account-selector.component';
 import {BeautifyNumPipe} from './_pipe/beautify-num.pipe';
 import {CashbookPageComponent} from './_pages/cashbook-page/cashbook-page.component';
 import { SignupFormPageComponent } from './_pages/signup-form-page/signup-form-page.component';
-import { RemindersPageComponent } from './_pages/reminders-page/reminders-page.component';
+import { TasksPageComponent } from './_pages/tasks-page/tasks-page.component';
 import { InvoicesPageComponent } from './_pages/invoices-page/invoices-page.component';
 import { SuppliesPageComponent } from './_pages/supplies-page/supplies-page.component';
-import { ReminderQuickAddComponent } from './_pages/reminders-page/reminder-quick-add/reminder-quick-add.component';
+import { TasksQuickAddComponent } from './_pages/tasks-page/task-quick-add/tasks-quick-add.component';
 import { SToStringPipe } from './_pipe/s-to-string.pipe';
-import { RemindersPageListComponent } from './_pages/reminders-page/reminders-page-list/reminders-page-list.component';
+import { TasksPageListComponent } from './_pages/tasks-page/tasks-page-list/tasks-page-list.component';
 import { ToUnixtPipe } from './_pipe/to-unixt.pipe';
 import { ExpiredPipe } from './_pipe/expired.pipe';
 import { VarDirective } from './_directive/var.directive';
-import { RemindersPageDoneListComponent } from './_pages/reminders-page/reminders-page-done-list/reminders-page-done-list.component';
-import { RemindersDialogEditComponent } from './_pages/reminders-page/reminders-dialog-edit/reminders-dialog-edit.component';
+import { TasksPageDoneListComponent } from './_pages/tasks-page/tasks-page-done-list/tasks-page-done-list.component';
+import { TasksDialogEditComponent } from './_pages/tasks-page/task-dialog-edit/tasks-dialog-edit.component';
 import { PinnedAccountsComponent } from './_pages/homepage/pinned-accounts/pinned-accounts.component';
-import { ExpiredRemindersComponent } from './_pages/homepage/expired-reminders/expired-reminders.component';
+import { ExpiredTasksComponent } from './_pages/homepage/expired-tasks/expired-tasks.component';
 
 
 @NgModule({
@@ -69,20 +69,20 @@ import { ExpiredRemindersComponent } from './_pages/homepage/expired-reminders/e
     AccountSelectorComponent,
     BeautifyNumPipe,
     SignupFormPageComponent,
-    RemindersPageComponent,
+    TasksPageComponent,
     InvoicesPageComponent,
     SuppliesPageComponent,
     EmployeeDialogEditComponent,
-    ReminderQuickAddComponent,
+    TasksQuickAddComponent,
     SToStringPipe,
-    RemindersPageListComponent,
+    TasksPageListComponent,
     ToUnixtPipe,
     ExpiredPipe,
     VarDirective,
-    RemindersPageDoneListComponent,
-    RemindersDialogEditComponent,
+    TasksPageDoneListComponent,
+    TasksDialogEditComponent,
     PinnedAccountsComponent,
-    ExpiredRemindersComponent,
+    ExpiredTasksComponent,
   ],
   entryComponents: [
     ConfirmDialogComponent,

@@ -1,4 +1,4 @@
-export class Reminder {
+export class Task {
     id: string;
     descr: string;
     dueBy: Date;

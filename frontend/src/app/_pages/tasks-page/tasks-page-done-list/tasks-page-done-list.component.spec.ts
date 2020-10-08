@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RemindersPageDoneListComponent } from './reminders-page-done-list.component';
+import { TasksPageDoneListComponent } from './tasks-page-done-list.component';
 
 describe('RemindersPageDoneListComponent', () => {
-  let component: RemindersPageDoneListComponent;
-  let fixture: ComponentFixture<RemindersPageDoneListComponent>;
+  let component: TasksPageDoneListComponent;
+  let fixture: ComponentFixture<TasksPageDoneListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RemindersPageDoneListComponent ]
+      declarations: [ TasksPageDoneListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RemindersPageDoneListComponent);
+    fixture = TestBed.createComponent(TasksPageDoneListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

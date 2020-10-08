@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RemindersPageListComponent } from './reminders-page-list.component';
+import { TasksDialogEditComponent } from './tasks-dialog-edit.component';
 
-describe('RemindersPageListComponent', () => {
-  let component: RemindersPageListComponent;
-  let fixture: ComponentFixture<RemindersPageListComponent>;
+describe('RemindersDialogEditComponent', () => {
+  let component: TasksDialogEditComponent;
+  let fixture: ComponentFixture<TasksDialogEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RemindersPageListComponent ]
+      declarations: [ TasksDialogEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RemindersPageListComponent);
+    fixture = TestBed.createComponent(TasksDialogEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RemindersPageComponent } from './reminders-page.component';
+import { TasksQuickAddComponent } from './tasks-quick-add.component';
 
-describe('RemindersPageComponent', () => {
-  let component: RemindersPageComponent;
-  let fixture: ComponentFixture<RemindersPageComponent>;
+describe('ReminderQuickAddComponent', () => {
+  let component: TasksQuickAddComponent;
+  let fixture: ComponentFixture<TasksQuickAddComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RemindersPageComponent ]
+      declarations: [ TasksQuickAddComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RemindersPageComponent);
+    fixture = TestBed.createComponent(TasksQuickAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

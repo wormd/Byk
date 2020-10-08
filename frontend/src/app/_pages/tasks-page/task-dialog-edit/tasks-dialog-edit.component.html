@@ -1,6 +1,6 @@
 <form class="" (ngSubmit)="onSubmit()" #_reminderForm="ngForm">
     <div class="modal-header">
-      <h4 class="modal-title d-flex" id="modal-title">Edit Reminder</h4>
+      <h4 class="modal-title d-flex" id="modal-title">Edit Task</h4>
       <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close('close')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -28,7 +28,7 @@
         <div class="form-inline">
           <input type="checkbox" [(ngModel)]="reminder.cycle" class="form-control mr-2" name="cycle">
           <select class="form-control mr-2" [disabled]="!reminder.cycle" [(ngModel)]="reminder.cycletime" name="cycletime">
-              <option [value]="" hidden selected>Select period </option> 
+              <option [value]="" hidden selected>Select period </option>
               <!-- ^ TODO: Not working - find a solution -->
               <option *ngFor="let item of periods" [value]="item.value">{{item.desc}}</option>
           </select>
@@ -40,4 +40,3 @@
       <button type="button" class="btn btn-outline-secondary" (click)="modal.close('cancel')">Cancel</button>
     </div>
   </form>
-  

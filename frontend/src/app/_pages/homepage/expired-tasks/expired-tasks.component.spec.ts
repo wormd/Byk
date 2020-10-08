@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExpiredRemindersComponent } from './expired-reminders.component';
+import { ExpiredTasksComponent } from './expired-tasks.component';
 
 describe('ExpiredRemindersComponent', () => {
-  let component: ExpiredRemindersComponent;
-  let fixture: ComponentFixture<ExpiredRemindersComponent>;
+  let component: ExpiredTasksComponent;
+  let fixture: ComponentFixture<ExpiredTasksComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExpiredRemindersComponent ]
+      declarations: [ ExpiredTasksComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExpiredRemindersComponent);
+    fixture = TestBed.createComponent(ExpiredTasksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

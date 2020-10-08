@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RemindersService } from './reminders.service';
+import { TasksService } from './tasks.service';
 
 describe('RemindersService', () => {
-  let service: RemindersService;
+  let service: TasksService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RemindersService);
+    service = TestBed.inject(TasksService);
   });
 
   it('should be created', () => {

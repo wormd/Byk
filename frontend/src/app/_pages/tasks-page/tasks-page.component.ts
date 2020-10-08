@@ -2,19 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/_service/auth.service';
-import { RemindersService } from 'src/app/_service/reminders.service';
-import { Reminder } from 'src/app/_model/reminder';
+import { TasksService } from 'src/app/_service/tasks.service';
+import { Task } from 'src/app/_model/task';
 
 @Component({
   selector: 'app-reminders-page',
-  templateUrl: './reminders-page.component.html',
-  styleUrls: ['./reminders-page.component.css']
+  templateUrl: './tasks-page.component.html',
+  styleUrls: ['./tasks-page.component.css']
 })
 
-export class RemindersPageComponent implements OnInit {
+export class TasksPageComponent implements OnInit {
 
-  constructor(private router: Router, private authService: AuthService, 
-    public reminderService: RemindersService) { }
+  constructor(private router: Router, private authService: AuthService,
+    public reminderService: TasksService) { }
 
   ngOnInit() {
     if (!this.authService.loggedIn()) {

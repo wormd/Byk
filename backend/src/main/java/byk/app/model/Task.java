@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class Reminder {
+public class Task {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long Id;
@@ -19,13 +19,13 @@ public class Reminder {
     @OneToOne
     private Payment payment;
 
-    public Reminder() {
+    public Task() {
         this.setCreated(LocalDateTime.now());
         this.cycle = false;
         this.done = false;
     }
 
-    public Reminder(Reminder copyFrom) {
+    public Task(Task copyFrom) {
         this();
         this.descr = copyFrom.getDescr();
         // should the created date be from parent reminder or not?
