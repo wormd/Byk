@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public interface ReminderRepository extends JpaRepository<Reminder, Long> {
     @Query("select r from Reminder r where "+
-                                        "(:after is null or :after >= r.dueBy) and "+
-                                        "(:before is null or :before <= r.dueBy) and "+
+                                        "(cast(:after as date) is null or :after >= r.dueBy) and "+
+                                        "(cast(:before as date) is null or :before <= r.dueBy) and "+
                                         "r.done = :done")
     Page<Reminder> findAllByParams(LocalDateTime after, LocalDateTime before, Boolean done, Pageable pageable);
 }
