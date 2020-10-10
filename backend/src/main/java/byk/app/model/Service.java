@@ -12,6 +12,7 @@ public class Service {
     private Long id;
     private String name;
     private LocalDateTime created;
+    private Boolean active;
 
     @OneToMany
     private List<Employee> staff;
@@ -24,6 +25,7 @@ public class Service {
 
     public Service() {
         created = LocalDateTime.now();
+        active = true;
     }
 
     public Long getId() {
@@ -72,5 +74,21 @@ public class Service {
 
     public void setClients(List<Client> clients) {
         this.clients = clients;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public void toggleActive() {
+        if (this.active) {
+            this.active = false;
+        } else {
+            this.active = true;
+        }
     }
 }

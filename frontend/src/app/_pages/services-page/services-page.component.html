@@ -1,1 +1,37 @@
-<p>services-page works!</p>
+<div class=""> 
+  <ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li ngbNavItem>
+      <a ngbNavLink>Add Account</a>
+      <ng-template ngbNavContent>
+        <app-service-quick-add></app-service-quick-add>
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav" class="border-right border-left border-bottom"></div>
+  <div class="d-flex d-inline mt-2">
+    <h4>Services</h4>            
+    <i class="bg-transparent btn fas" [ngClass]="{'fa-lock': lock, 'fa-lock-open': !lock}" (click)="lock = !lock"></i>
+  </div>
+  <table class="table table-striped mt-2 col-lg-4">
+    <tr class="">
+      <th scope="col" style="width: 10%" class="text-nowrap">Name</th>
+      <th scope="col" style="width: 1%" class="text-nowrap">Created</th>
+      <th scope="col" style="width: 1%" class="text-nowrap"></th>
+    </tr>
+    <tbody>
+      <ng-container *ngIf="(serviceService.services$ | async) as items; else loading">
+        <tr *ngFor="let item of items;" id="{{item.id}}">
+          <td class="text-nowrap" routerLink="/service/{{item.id}}" [style.color]="item.active? 'black' : 'gray'">{{ item.name }}</td>
+          <td class="text-nowrap" routerLink="/service/{{item.id}}"[style.color]="item.active? 'black' : 'gray'">{{ item.created | date:'yyyy-MM-dd hh:mm' }}</td>
+          <td class="text-nowrap">
+          <i title="Active/Deactivate" class="fa fa-clone bg-transparent mr-3" [ngClass]="item.active? 'fa-toggle-on' : 'fa-toggle-off'" [style.color]="!lock ? 'black':'gray'" [style.cursor]="!lock ? 'pointer': 'default'" (click)="toggleActive(item)"></i>
+          <i title="Delete" class="fa fa-times bg-transparent mr-3" [style.color]="!lock ? 'black':'gray'" [style.cursor]="!lock ? 'pointer': 'default'" (click)="delete(item)"></i>
+          </td>
+        </tr>
+        <tr *ngIf="items?.length === 0" role="status">
+          <td colspan="5" class="text-center">There are no services. Create one!</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

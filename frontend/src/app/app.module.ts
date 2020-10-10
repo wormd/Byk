@@ -44,6 +44,8 @@ import { TasksDialogEditComponent } from './_pages/tasks-page/task-dialog-edit/t
 import { PinnedAccountsComponent } from './_pages/homepage/pinned-accounts/pinned-accounts.component';
 import { ExpiredTasksComponent } from './_pages/homepage/expired-tasks/expired-tasks.component';
 import { ServicesPageComponent } from './_pages/services-page/services-page.component';
+import { ServiceQuickAddComponent } from './_pages/services-page/service-quick-add/service-quick-add.component';
+import { ServicePageComponent } from './_pages/service-page/service-page.component';
 
 
 @NgModule({
@@ -85,6 +87,8 @@ import { ServicesPageComponent } from './_pages/services-page/services-page.comp
     PinnedAccountsComponent,
     ExpiredTasksComponent,
     ServicesPageComponent,
+    ServiceQuickAddComponent,
+    ServicePageComponent,
   ],
   entryComponents: [
     ConfirmDialogComponent,

@@ -13,9 +13,9 @@
     </div>
 
     <h3 class="mt-2"> Short due </h3>
-    <app-tasks-page-list [obs]="reminderService.short$"></app-tasks-page-list>
+    <app-tasks-page-list [obs]="taskService.short$"></app-tasks-page-list>
     <h3> Long due </h3>
-    <app-tasks-page-list [obs]="reminderService.long$"></app-tasks-page-list>
+    <app-tasks-page-list [obs]="taskService.long$"></app-tasks-page-list>
     <h3> Done </h3>
-    <app-reminders-page-done-list [obs]="reminderService.done$"></app-reminders-page-done-list>
+    <app-reminders-page-done-list [obs]="taskService.done$"></app-reminders-page-done-list>
   </div>
