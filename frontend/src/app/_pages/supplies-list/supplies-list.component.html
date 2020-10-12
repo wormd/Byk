@@ -1,0 +1,21 @@
+<table class="table table-striped mt-2">
+  <tr class="">
+    <th scope="col" style="width: 10%" class="text-nowrap">Name</th>
+    <th scope="col" style="width: 1%" class="text-nowrap"></th>
+  </tr>
+  <tbody>
+    <ng-container *ngIf="supplies; else loading">
+      <tr *ngFor="let item of supplies;" id="{{item.id}}">
+        <td class="text-nowrap" routerLink="/staff/{{item.id}}">{{ item.name }}</td>
+        <td class="text-nowrap">
+          <i title="Remove" class="fa fa-times bg-transparent mr-3" 
+            [style.color]="!lock ? 'black':'gray'" 
+            [style.cursor]="!lock ? 'pointer': 'default'" (click)="remove(item.id)"></i>
+        </td>
+      </tr>
+      <tr *ngIf="supplies?.length === 0" role="status">
+        <td colspan="5" class="text-center">There are no supplies</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

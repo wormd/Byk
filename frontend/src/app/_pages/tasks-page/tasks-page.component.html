@@ -1,21 +1,17 @@
 <div class="">
-    <div class="">
-        <ul ngbNav #nav="ngbNav" class="nav-tabs">
-          <li ngbNavItem>
-            <a ngbNavLink>Add Task</a>
-            <ng-template ngbNavContent>
-              <app-reminder-quick-add></app-reminder-quick-add>
-            </ng-template>
-          </li>
-        </ul>
-        <div [ngbNavOutlet]="nav" class="border-right border-left border-bottom"></div>
-    <div>
-    </div>
-
-    <h3 class="mt-2"> Short due </h3>
-    <app-tasks-page-list [obs]="taskService.short$"></app-tasks-page-list>
-    <h3> Long due </h3>
-    <app-tasks-page-list [obs]="taskService.long$"></app-tasks-page-list>
-    <h3> Done </h3>
-    <app-reminders-page-done-list [obs]="taskService.done$"></app-reminders-page-done-list>
-  </div>
+  <ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li ngbNavItem>
+      <a ngbNavLink>Add Task</a>
+      <ng-template ngbNavContent>
+        <app-reminder-quick-add></app-reminder-quick-add>
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav" class="border-right border-left border-bottom"></div>
+  <h3 class="mt-2"> Short due </h3>
+  <app-tasks-page-list [obs]="taskService.short$"></app-tasks-page-list>
+  <h3> Long due </h3>
+  <app-tasks-page-list [obs]="taskService.long$"></app-tasks-page-list>
+  <h3> Done </h3>
+  <app-reminders-page-done-list [obs]="taskService.done$"></app-reminders-page-done-list>
+</div>

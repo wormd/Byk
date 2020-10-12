@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { Service } from 'src/app/_model/service';
 import { AuthService } from 'src/app/_service/auth.service';
+import { EmployeeService } from 'src/app/_service/employee.service';
 import { ServiceService } from 'src/app/_service/service.service';
+import { AddToListComponent } from './add-to-list/add-to-list.component';
 
 @Component({
   selector: 'app-service-page',
@@ -13,13 +16,46 @@ import { ServiceService } from 'src/app/_service/service.service';
 export class ServicePageComponent implements OnInit {
 
   service$: Observable<Service>;
+  service: Service;
+  staffLock = true;
+  suppliesLock = true;
+  clientsLock = true;
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, public serviceService: ServiceService) { }
+  constructor(private router: Router, private route: ActivatedRoute, 
+    private authService: AuthService, public serviceService: ServiceService,
+    private modalService: NgbModal, private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     if (!this.authService.loggedIn()) {
       this.router.navigate(['/login']);
     }
-    this.service$ = this.serviceService.get(this.route.snapshot.paramMap.get('id'))
+    this.service$ = this.serviceService.get(this.route.snapshot.paramMap.get('id'));
+    this.service$.subscribe(d => this.service = d);
+  }
+
+  add2Staff() {
+    this.employeeService.employees$.subscribe(emps => {
+      const modalRef = this.modalService.open(AddToListComponent);
+      modalRef.componentInstance.list = emps;
+      modalRef.componentInstance.selected.subscribe(res => {
+        console.log(res);
+        // implement
+      });
+    });
+  }
+
+  add2Supplies() {
+    // implement
+  }
+
+  add2Clients() {
+    this.employeeService.employees$.subscribe(emps => {
+      const modalRef = this.modalService.open(AddToListComponent);
+      modalRef.componentInstance.list = emps;
+      modalRef.componentInstance.selected.subscribe(res => {
+        console.log(res);
+        // implement
+      });
+    });
   }
 }

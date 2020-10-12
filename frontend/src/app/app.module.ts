@@ -46,6 +46,10 @@ import { ExpiredTasksComponent } from './_pages/homepage/expired-tasks/expired-t
 import { ServicesPageComponent } from './_pages/services-page/services-page.component';
 import { ServiceQuickAddComponent } from './_pages/services-page/service-quick-add/service-quick-add.component';
 import { ServicePageComponent } from './_pages/service-page/service-page.component';
+import { StaffListComponent } from './_pages/staff-list/staff-list.component';
+import { ClientsListComponent } from './_pages/clients-list/clients-list.component';
+import { SuppliesListComponent } from './_pages/supplies-list/supplies-list.component';
+import { AddToListComponent } from './_pages/service-page/add-to-list/add-to-list.component';
 
 
 @NgModule({
@@ -89,6 +93,10 @@ import { ServicePageComponent } from './_pages/service-page/service-page.compone
     ServicesPageComponent,
     ServiceQuickAddComponent,
     ServicePageComponent,
+    StaffListComponent,
+    ClientsListComponent,
+    SuppliesListComponent,
+    AddToListComponent,
   ],
   entryComponents: [
     ConfirmDialogComponent,

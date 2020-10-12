@@ -24,8 +24,13 @@
           <td class="text-nowrap" routerLink="/service/{{item.id}}" [style.color]="item.active? 'black' : 'gray'">{{ item.name }}</td>
           <td class="text-nowrap" routerLink="/service/{{item.id}}"[style.color]="item.active? 'black' : 'gray'">{{ item.created | date:'yyyy-MM-dd hh:mm' }}</td>
           <td class="text-nowrap">
-          <i title="Active/Deactivate" class="fa fa-clone bg-transparent mr-3" [ngClass]="item.active? 'fa-toggle-on' : 'fa-toggle-off'" [style.color]="!lock ? 'black':'gray'" [style.cursor]="!lock ? 'pointer': 'default'" (click)="toggleActive(item)"></i>
-          <i title="Delete" class="fa fa-times bg-transparent mr-3" [style.color]="!lock ? 'black':'gray'" [style.cursor]="!lock ? 'pointer': 'default'" (click)="delete(item)"></i>
+          <i title="Active/Deactivate" class="fa fa-clone bg-transparent mr-3" 
+            [ngClass]="item.active? 'fa-toggle-on' : 'fa-toggle-off'" 
+            [style.color]="!lock ? 'black':'gray'" 
+            [style.cursor]="!lock ? 'pointer': 'default'" (click)="toggleActive(item)"></i>
+          <i title="Delete" class="fa fa-times bg-transparent mr-3" 
+            [style.color]="!lock ? 'black':'gray'" 
+            [style.cursor]="!lock ? 'pointer': 'default'" (click)="delete(item)"></i>
           </td>
         </tr>
         <tr *ngIf="items?.length === 0" role="status">
