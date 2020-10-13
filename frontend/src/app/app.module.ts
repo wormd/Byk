@@ -43,6 +43,14 @@ import { TasksPageDoneListComponent } from './_pages/tasks-page/tasks-page-done-
 import { TasksDialogEditComponent } from './_pages/tasks-page/task-dialog-edit/tasks-dialog-edit.component';
 import { PinnedAccountsComponent } from './_pages/homepage/pinned-accounts/pinned-accounts.component';
 import { ExpiredTasksComponent } from './_pages/homepage/expired-tasks/expired-tasks.component';
+import { ServicesPageComponent } from './_pages/services-page/services-page.component';
+import { ServiceQuickAddComponent } from './_pages/services-page/service-quick-add/service-quick-add.component';
+import { ServicePageComponent } from './_pages/service-page/service-page.component';
+import { StaffListComponent } from './_pages/staff-list/staff-list.component';
+import { ClientsListComponent } from './_pages/clients-list/clients-list.component';
+import { SuppliesListComponent } from './_pages/supplies-list/supplies-list.component';
+import { AddToListComponent } from './_pages/service-page/add-to-list/add-to-list.component';
+import { SupplyDialogAddComponent } from './_pages/service-page/supply-dialog-add/supply-dialog-add.component';
 
 
 @NgModule({
@@ -83,6 +91,14 @@ import { ExpiredTasksComponent } from './_pages/homepage/expired-tasks/expired-t
     TasksDialogEditComponent,
     PinnedAccountsComponent,
     ExpiredTasksComponent,
+    ServicesPageComponent,
+    ServiceQuickAddComponent,
+    ServicePageComponent,
+    StaffListComponent,
+    ClientsListComponent,
+    SuppliesListComponent,
+    AddToListComponent,
+    SupplyDialogAddComponent,
   ],
   entryComponents: [
     ConfirmDialogComponent,

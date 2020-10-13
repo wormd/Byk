@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Task } from 'src/app/_model/task';
 import { AlertService } from 'src/app/_service/alert.service';
-import { TasksService } from 'src/app/_service/tasks.service';
+import { TaskService } from 'src/app/_service/task.service';
 
 export const periods = [
   {value:604800,desc:'1 week'},
@@ -25,7 +25,7 @@ export class TasksQuickAddComponent implements OnInit {
   periods = periods;
 
   constructor(public alertService: AlertService, private calendar: NgbCalendar,
-    private reminderService: TasksService) {
+    private reminderService: TaskService) {
 
     }
 

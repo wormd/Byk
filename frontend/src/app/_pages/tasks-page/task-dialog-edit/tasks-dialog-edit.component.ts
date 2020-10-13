@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Task } from 'src/app/_model/task';
-import { TasksService } from 'src/app/_service/tasks.service';
+import { TaskService } from 'src/app/_service/task.service';
 import { periods } from '../task-quick-add/tasks-quick-add.component';
 
 @Component({
@@ -16,7 +16,7 @@ export class TasksDialogEditComponent implements OnInit {
   dueByModel: NgbDateStruct;
   periods = periods;
 
-  constructor(private reminderService: TasksService, public modal: NgbActiveModal) {
+  constructor(private reminderService: TaskService, public modal: NgbActiveModal) {
   }
 
   ngOnInit(): void {

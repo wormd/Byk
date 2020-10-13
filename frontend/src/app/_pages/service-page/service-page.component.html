@@ -1,0 +1,33 @@
+<div class="" *ngIf="(service$ | async) as service"> 
+    <h1>{{ service.name }}    
+      <small *ngIf="service.active" style="color: aqua; font-size: 0.8rem;">Active</small>
+      <small *ngIf="!service.active" style="color: gray; font-size: 0.8rem;">Deactivated</small>
+    </h1>
+
+  <div class="d-flex d-inline mt-2">
+    <h4>Staff</h4>
+    <i class="bg-transparent btn fas fa-plus p-1" (click)="add2Staff()"></i>
+    <i class="bg-transparent btn fas p-1" [ngClass]="{'fa-lock': staffLock, 'fa-lock-open': !staffLock}" (click)="staffLock = !staffLock"></i>
+  </div>
+  <div class="col-lg-4 p-0">
+    <app-staff-list [staff]="service.staff" [lock]="staffLock"></app-staff-list>
+  </div>
+
+  <div class="d-flex d-inline mt-2">
+    <h4>Supplies</h4>
+    <i class="bg-transparent btn fas fa-plus p-1" (click)="add2Supplies()"></i>
+    <i class="bg-transparent btn fas p-1" [ngClass]="{'fa-lock': suppliesLock, 'fa-lock-open': !suppliesLock}" (click)="suppliesLock = !suppliesLock"></i>
+  </div>
+  <div class="col-lg-4 p-0">
+    <app-supplies-list [supplies]="service.supplies" [lock]="suppliesLock"></app-supplies-list>
+  </div>
+
+  <div class="d-flex d-inline mt-2">
+    <h4>Clients</h4>
+    <i class="bg-transparent btn fas fa-plus p-1" (click)="add2Clients()"></i>
+    <i class="bg-transparent btn fas p-1" [ngClass]="{'fa-lock': clientsLock, 'fa-lock-open': !clientsLock}" (click)="clientsLock = !clientsLock"></i>
+  </div>
+  <div class="col-lg-4 p-0">
+    <app-clients-list [clients]="service.clients" [lock]="clientsLock"></app-clients-list>
+  </div>
+</div>

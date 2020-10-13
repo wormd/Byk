@@ -1,0 +1,11 @@
+<div class="card-body">
+    <form class="form-inline card-text" (ngSubmit)="onSubmit()" #lineForm="ngForm">
+      <input type="text" class="form-control mr-2" size="50"
+              placeholder="Name"
+              name="name"
+
+              [(ngModel)]="service.name"
+              required/>
+      <button type="submit" class="btn btn-success" [disabled]="!lineForm.form.valid">Add</button>
+    </form>
+  </div>

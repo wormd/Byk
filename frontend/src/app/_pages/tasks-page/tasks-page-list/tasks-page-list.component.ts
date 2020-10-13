@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/_model/task';
 import { AlertService } from 'src/app/_service/alert.service';
-import { TasksService } from 'src/app/_service/tasks.service';
+import { TaskService } from 'src/app/_service/task.service';
 import { TasksDialogEditComponent } from '../task-dialog-edit/tasks-dialog-edit.component';
 
 @Component({
@@ -19,7 +19,7 @@ export class TasksPageListComponent implements OnInit {
   today = Date.now();
   timeleft: any;
 
-  constructor(private modalService: NgbModal, public reminderService: TasksService,
+  constructor(private modalService: NgbModal, public reminderService: TaskService,
     private alertService: AlertService) { }
 
   ngOnInit(): void {

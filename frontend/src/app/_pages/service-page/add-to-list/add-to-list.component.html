@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h4 class="modal-title">Add staff to the service</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close('close')">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <label for="typeahead">Search:</label>
+    <input id="typeahead" name="" type="text" class="form-control"
+        placeholder=""
+        [(ngModel)]="model"
+        [ngbTypeahead]="search"
+        [inputFormatter]="formatter"
+        [resultFormatter]="formatter"
+        (focus)="focus$.next($any($event).target.value)"
+        (click)="click$.next($any($event).target.value)"
+        [editable]="false"
+        (selectItem)="changed($event)"/>
+      <!-- <button type="submit" class="btn btn-success ml-1">Add</button> -->
+    <p class="mt-2" style="color:green">{{ message }}</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('close')">Close</button>
+</div>

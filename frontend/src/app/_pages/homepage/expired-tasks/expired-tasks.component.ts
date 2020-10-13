@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { Task } from 'src/app/_model/task';
-import { TasksService } from 'src/app/_service/tasks.service';
+import { TaskService } from 'src/app/_service/task.service';
 
 @Component({
   selector: 'app-expired-reminders',
@@ -12,7 +12,7 @@ export class ExpiredTasksComponent implements OnInit {
 
   reminders$: Observable<Task[]>;
 
-  constructor(public reminderService: TasksService) { }
+  constructor(public reminderService: TaskService) { }
 
   ngOnInit(): void {
     this.fetchData();

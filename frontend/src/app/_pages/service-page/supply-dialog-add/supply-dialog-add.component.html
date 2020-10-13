@@ -1,0 +1,43 @@
+<form class="" (ngSubmit)="onSubmit()" #supplyForm="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title d-flex" id="modal-title">Add Supply</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.close('cancel click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="supply.name" required #_name="ngModel">
+    </div>
+    <div [hidden]="_name.valid || _name.pristine" class="alert alert-danger">Name Required</div>
+
+    <div class="form-group">
+      <label for="address">Pay date</label>
+      <div class="input-group mr-2">
+        <input class="form-control" placeholder="yyyy-mm-dd"
+               name="dp" [(ngModel)]="dateModel"
+               ngbDatepicker
+               #d="ngbDatepicker">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="box">Repeat? </label>
+      <input id="box" type="checkbox" (change)="check = !check">
+    </div>
+
+    <div class="form-group">
+      <label for="days">Every number of days:</label>
+      <input type="number" class="form-control" id="days" name="days" [(ngModel)]="days" [disabled]='!check'>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" [disabled]="!supplyForm.form.valid">Add</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.close('cancel click')">Cancel</button>
+  </div>
+</form>

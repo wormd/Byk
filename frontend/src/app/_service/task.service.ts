@@ -17,7 +17,7 @@ export function dict2Params(dict) {
 @Injectable({
   providedIn: 'root'
 })
-export class TasksService {
+export class TaskService {
 
   private url: string;
   private _short = new ReplaySubject<Task[]>();

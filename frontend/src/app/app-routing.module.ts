@@ -12,6 +12,8 @@ import { EmployeeDialogAddComponent } from './_pages/employees-list-page/employe
 import { TasksPageComponent } from './_pages/tasks-page/tasks-page.component';
 import { InvoicesPageComponent } from './_pages/invoices-page/invoices-page.component';
 import { SuppliesPageComponent } from './_pages/supplies-page/supplies-page.component';
+import { ServicesPageComponent } from './_pages/services-page/services-page.component';
+import { ServicePageComponent } from './_pages/service-page/service-page.component';
 
 
 const routes: Routes = [
@@ -28,7 +30,11 @@ const routes: Routes = [
   { path: 'tasks', component: TasksPageComponent },
   { path: 'invoices', component: InvoicesPageComponent },
   { path: 'supplies', component: SuppliesPageComponent },
+  { path: 'services', component: ServicesPageComponent },
+  { path: 'service/:id', component: ServicePageComponent },
+
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

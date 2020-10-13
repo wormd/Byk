@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/_model/task';
-import { TasksService } from 'src/app/_service/tasks.service';
+import { TaskService } from 'src/app/_service/task.service';
 
 @Component({
   selector: 'app-reminders-page-done-list',
@@ -16,7 +16,7 @@ export class TasksPageDoneListComponent implements OnInit {
   today = Date.now();
   timeleft: any;
 
-  constructor(private modalService: NgbModal, public reminderService: TasksService) { }
+  constructor(private modalService: NgbModal, public reminderService: TaskService) { }
 
   ngOnInit(): void {
   }
