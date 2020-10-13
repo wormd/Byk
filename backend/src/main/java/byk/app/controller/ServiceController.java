@@ -2,11 +2,12 @@ package byk.app.controller;
 
 import byk.app.model.Client;
 import byk.app.model.Service;
-import byk.app.model.Task;
+import byk.app.model.Supply;
 import byk.app.repository.ClientRepository;
 import byk.app.repository.ServiceRepository;
-import org.apache.coyote.Response;
+import byk.app.repository.SupplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,9 @@ public class ServiceController {
 
     @Autowired
     ClientRepository clientRepository;
+
+    @Autowired
+    SupplyRepository supplyRepository;
 
     @GetMapping
     public @ResponseBody
@@ -114,6 +118,49 @@ public class ServiceController {
                 }
             } else {
                 ResponseEntity.badRequest().body(Map.of("message", "This client doesn't exist"));
+            }
+        }
+        return ResponseEntity.badRequest().body(Map.of("message", "This service doesn't exist"));
+    }
+
+    // TODO: FIXTHIS Not adding correctly?
+    @GetMapping("/{id}/supplies/{supply_id}/add")
+    public @ResponseBody
+    ResponseEntity<?> addSupply(@PathVariable("id") Long id, @PathVariable("supply_id") Long supplyId) {
+        Optional<Service> serviceOpt = serviceRepository.findById(id);
+        if (serviceOpt.isPresent()) {
+            Optional<Supply> supplyOpt = supplyRepository.findById(supplyId);
+            if (supplyOpt.isPresent()) {
+                Service service = serviceOpt.get();
+                service.addSupply(supplyOpt.get());
+                serviceRepository.save(service);
+                return ResponseEntity.ok(serviceOpt.get());
+            } else {
+                ResponseEntity.badRequest().body(Map.of("message", "This supply doesn't exist"));
+            }
+        }
+        return ResponseEntity.badRequest().body(Map.of("message", "This service doesn't exist"));
+    }
+
+    @GetMapping("/{id}/supplies/{supply_id}/remove")
+    public @ResponseBody
+    ResponseEntity<?> removeSupply(@PathVariable("id") Long id, @PathVariable("supply_id") Long supplyId) {
+        Optional<Service> serviceOpt = serviceRepository.findById(id);
+        if (serviceOpt.isPresent()) {
+            Optional<Supply> supplyOpt = supplyRepository.findById(supplyId);
+            if (supplyOpt.isPresent()) {
+                Service service = serviceOpt.get();
+                Supply supply = supplyOpt.get();
+                List<Supply> supplies = service.getSupplies();
+                if (supplies.contains(supply)) {
+                    service.removeSupply(supply);
+                    serviceRepository.save(service);
+                    return ResponseEntity.ok(serviceOpt.get());
+                } else {
+                    ResponseEntity.badRequest().body(Map.of("message", "This supply isn't registered on this service"));
+                }
+            } else {
+                ResponseEntity.badRequest().body(Map.of("message", "This supply doesn't exist"));
             }
         }
         return ResponseEntity.badRequest().body(Map.of("message", "This service doesn't exist"));

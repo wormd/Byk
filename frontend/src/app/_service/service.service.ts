@@ -10,7 +10,6 @@ import { AlertService } from './alert.service';
   providedIn: 'root'
 })
 export class ServiceService {
-
   private url: string;
   private _list = new ReplaySubject<Service[]>();
   private _services;
@@ -68,6 +67,14 @@ export class ServiceService {
 
   public removeClient(id: string, clientId: string) {
     return this.http.get(this.url + id + "/clients/"+clientId+"/remove");
+  }
+
+  public addSupply(id: string, supplyId: string) {
+    return this.http.get(this.url + id + "/supplies/"+supplyId+"/add");
+  }
+
+  public removeSupply(id: string, supplyId: string) {
+    return this.http.get(this.url + id + "/supplies/"+supplyId+"/remove");
   }
 
 }

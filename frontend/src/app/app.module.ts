@@ -50,6 +50,7 @@ import { StaffListComponent } from './_pages/staff-list/staff-list.component';
 import { ClientsListComponent } from './_pages/clients-list/clients-list.component';
 import { SuppliesListComponent } from './_pages/supplies-list/supplies-list.component';
 import { AddToListComponent } from './_pages/service-page/add-to-list/add-to-list.component';
+import { SupplyDialogAddComponent } from './_pages/service-page/supply-dialog-add/supply-dialog-add.component';
 
 
 @NgModule({
@@ -97,6 +98,7 @@ import { AddToListComponent } from './_pages/service-page/add-to-list/add-to-lis
     ClientsListComponent,
     SuppliesListComponent,
     AddToListComponent,
+    SupplyDialogAddComponent,
   ],
   entryComponents: [
     ConfirmDialogComponent,

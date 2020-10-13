@@ -7,7 +7,9 @@ import { AuthService } from 'src/app/_service/auth.service';
 import { ClientService } from 'src/app/_service/client.service';
 import { EmployeeService } from 'src/app/_service/employee.service';
 import { ServiceService } from 'src/app/_service/service.service';
+import { SupplyService } from 'src/app/_service/supply.service';
 import { AddToListComponent } from './add-to-list/add-to-list.component';
+import { SupplyDialogAddComponent } from './supply-dialog-add/supply-dialog-add.component';
 
 @Component({
   selector: 'app-service-page',
@@ -26,7 +28,7 @@ export class ServicePageComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, 
     private authService: AuthService, public serviceService: ServiceService,
     private modalService: NgbModal, private employeeService: EmployeeService,
-    private clientService: ClientService) { }
+    private supplyService: SupplyService, private clientService: ClientService) { }
 
   ngOnInit(): void {
     if (!this.authService.loggedIn()) {
@@ -42,15 +44,19 @@ export class ServicePageComponent implements OnInit {
       const modalRef = this.modalService.open(AddToListComponent);
       modalRef.componentInstance.list = emps;
       modalRef.componentInstance.selected.subscribe(res => {
-
-        console.log(res);
-        // implement
+        // TODO: implement
       });
     });
   }
 
   add2Supplies() {
-    // implement
+    this.supplyService.get(null).subscribe(d => {
+      const modalRef = this.modalService.open(SupplyDialogAddComponent);
+      modalRef.componentInstance.list = d;
+      modalRef.componentInstance.selected.subscribe(res => {
+        this.serviceService.addSupply(this.id, res.id);
+      });
+    });
   }
 
   add2Clients() {
@@ -61,5 +67,9 @@ export class ServicePageComponent implements OnInit {
         this.serviceService.addClient(this.id, res.id);
       });
     });
+  }
+
+  removeClient(clientId: string) {
+    this.serviceService.removeClient(this.id, clientId);
   }
 }
