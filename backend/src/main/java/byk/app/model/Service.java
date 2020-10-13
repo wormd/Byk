@@ -91,4 +91,28 @@ public class Service {
             this.active = true;
         }
     }
+
+    public void addClient(Client client) {
+        this.clients.add(client);
+    }
+
+    public void removeClient(Client client) {
+        this.clients.remove(client);
+    }
+
+    public void addEmployee(Employee employee) {
+        this.staff.add(employee);
+    }
+
+    public void removeEmployee(Employee employee) {
+        this.staff.remove(employee);
+    }
+
+    public void addSupply(Supply supply) {
+        this.supplies.add(supply);
+    }
+
+    public void removeSupply(Supply supply) {
+        this.supplies.remove(supply);
+    }
 }

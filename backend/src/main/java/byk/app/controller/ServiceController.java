@@ -1,7 +1,9 @@
 package byk.app.controller;
 
+import byk.app.model.Client;
 import byk.app.model.Service;
 import byk.app.model.Task;
+import byk.app.repository.ClientRepository;
 import byk.app.repository.ServiceRepository;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class ServiceController {
 
     @Autowired
     ServiceRepository serviceRepository;
+
+    @Autowired
+    ClientRepository clientRepository;
 
     @GetMapping
     public @ResponseBody
@@ -68,5 +73,49 @@ public class ServiceController {
     public void put(@RequestBody Service service) {
 //        TODO: implement & update just service columns
 //        serviceRepository.save(service);
+    }
+
+    // ADD/REMOVE METHODS
+
+    @GetMapping("/{id}/clients/{client_id}/add")
+    public @ResponseBody
+    ResponseEntity<?> addClient(@PathVariable("id") Long id, @PathVariable("client_id") Long client_id) {
+        Optional<Service> serviceOpt = serviceRepository.findById(id);
+        if (serviceOpt.isPresent()) {
+            Optional<Client> clientOpt = clientRepository.findById(client_id);
+            if (clientOpt.isPresent()) {
+                Service service = serviceOpt.get();
+                service.addClient(clientOpt.get());
+                serviceRepository.save(service);
+                return ResponseEntity.ok(serviceOpt.get());
+            } else {
+                ResponseEntity.badRequest().body(Map.of("message", "This client doesn't exist"));
+            }
+        }
+        return ResponseEntity.badRequest().body(Map.of("message", "This service doesn't exist"));
+    }
+
+    @GetMapping("/{id}/clients/{client_id}/remove")
+    public @ResponseBody
+    ResponseEntity<?> removeClient(@PathVariable("id") Long id, @PathVariable("client_id") Long client_id) {
+        Optional<Service> serviceOpt = serviceRepository.findById(id);
+        if (serviceOpt.isPresent()) {
+            Optional<Client> clientOpt = clientRepository.findById(client_id);
+            if (clientOpt.isPresent()) {
+                Service service = serviceOpt.get();
+                Client client = clientOpt.get();
+                List<Client> clients = service.getClients();
+                if (clients.contains(client)) {
+                    service.removeClient(client);
+                    serviceRepository.save(service);
+                    return ResponseEntity.ok(serviceOpt.get());
+                } else {
+                    ResponseEntity.badRequest().body(Map.of("message", "This client isn't registered on this service"));
+                }
+            } else {
+                ResponseEntity.badRequest().body(Map.of("message", "This client doesn't exist"));
+            }
+        }
+        return ResponseEntity.badRequest().body(Map.of("message", "This service doesn't exist"));
     }
 }

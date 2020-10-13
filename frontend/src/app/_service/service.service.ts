@@ -61,4 +61,13 @@ export class ServiceService {
       this._list.next(d);
     });
   }
+
+  public addClient(id: string, clientId: string) {
+    return this.http.get(this.url + id + "/clients/"+clientId+"/add");
+  }
+
+  public removeClient(id: string, clientId: string) {
+    return this.http.get(this.url + id + "/clients/"+clientId+"/remove");
+  }
+
 }

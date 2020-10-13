@@ -5,17 +5,18 @@
     </button>
 </div>
 <div class="modal-body">
-    <div class="d-flex d-inline">
-    <input id='' name="" type="text" class="form-control"
+    <label for="typeahead">Search:</label>
+    <input id="typeahead" name="" type="text" class="form-control"
         placeholder=""
         [(ngModel)]="model"
-        [ngbTypeahead]="objectSearch"
+        [ngbTypeahead]="search"
         [inputFormatter]="formatter"
         [resultFormatter]="formatter"
+        (focus)="focus$.next($any($event).target.value)"
+        (click)="click$.next($any($event).target.value)"
         [editable]="false"
         (selectItem)="changed($event)"/>
       <!-- <button type="submit" class="btn btn-success ml-1">Add</button> -->
-      </div>
     <p class="mt-2" style="color:green">{{ message }}</p>
 </div>
 <div class="modal-footer">

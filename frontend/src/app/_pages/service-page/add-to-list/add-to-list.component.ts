@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { NgbActiveModal, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { merge, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 @Component({
@@ -17,21 +17,36 @@ export class AddToListComponent implements OnInit {
 
   model: any;
 
-  formatter = (object: any) => object.name+' '+object.surname;
+  @ViewChild('instance', {static: true}) instance: NgbTypeahead;
+  focus$ = new Subject<string>();
+  click$ = new Subject<string>();
 
-  objectSearch = (text$: Observable<string>) => text$.pipe(
-    debounceTime(200),
-    distinctUntilChanged(),
-    filter(term => term.length >= 1),
-    map(term => this.list.filter(item => new RegExp(term, 'mi').test(item.name+' '+item.surname)).slice(0, 10)))
+  strings = (object: any) => {
+    if (object.surname) {
+      return object.name+' '+object.surname;
+    } else {
+      return object.name;
+    }
+  }
+
+  search = (text$: Observable<string>) => {
+    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+    const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
+    const inputFocus$ = this.focus$;
+
+    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
+      map(term => (term === ''  ? this.list
+        : this.list.filter(item => new RegExp(term, 'mi').test(this.strings(item))).slice(0, 10))));
+  }
+
+  formatter = (object: any) => this.strings(object);
 
   constructor(public activeModal: NgbActiveModal) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   changed(event) {
-    this.message = "Added `"+event.item.name+' '+event.item?.surname+"` to list";
+    this.message = "Added `"+this.strings(event.item)+"` to list";
     this.selected.emit(event.item);
   }
 }
