@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Client } from '../_model/client';
+import { Employee } from '../_model/employee';
 import { Service } from '../_model/service';
+import { Supply } from '../_model/supply';
 import { AlertService } from './alert.service';
 
 @Injectable({
@@ -66,15 +69,24 @@ export class ServiceService {
   }
 
   public removeClient(id: string, clientId: string) {
-    return this.http.get(this.url + id + "/clients/"+clientId+"/remove");
+    return this.http.get<Client[]>(this.url + id + "/clients/"+clientId+"/remove");
   }
 
   public addSupply(id: string, supplyId: string) {
+    console.log(this.url + id + "/supplies/"+supplyId+"/add");
     return this.http.get(this.url + id + "/supplies/"+supplyId+"/add");
   }
 
   public removeSupply(id: string, supplyId: string) {
-    return this.http.get(this.url + id + "/supplies/"+supplyId+"/remove");
+    return this.http.get<Supply[]>(this.url + id + "/supplies/"+supplyId+"/remove");
   }
 
+  public addEmployee(id: string, supplyId: string) {
+    console.log(this.url + id + "/employees/"+supplyId+"/add");
+    return this.http.get(this.url + id + "/employees/"+supplyId+"/add");
+  }
+
+  public removeEmployee(id: string, supplyId: string) {
+    return this.http.get<Employee[]>(this.url + id + "/employees/"+supplyId+"/remove");
+  }
 }

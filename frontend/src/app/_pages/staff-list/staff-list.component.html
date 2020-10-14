@@ -6,7 +6,7 @@
   <tbody>
     <ng-container *ngIf="staff; else loading">
       <tr *ngFor="let item of staff;" id="{{item.id}}">
-        <td class="text-nowrap" routerLink="/employee/{{item.id}}">{{ item.name }}</td>
+        <td class="text-nowrap" routerLink="/employee/{{item.id}}">{{ item.name }} {{ item.surname }}</td>
         <td class="text-nowrap">
           <i title="Remove" class="fa fa-times bg-transparent mr-3" 
             [style.color]="!lock ? 'black':'gray'" 

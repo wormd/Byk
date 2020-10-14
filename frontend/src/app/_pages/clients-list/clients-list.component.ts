@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Client } from 'src/app/_model/client';
-import { Service } from 'src/app/_model/service';
+import { ServiceService } from 'src/app/_service/service.service';
 
 @Component({
   selector: 'app-clients-list',
@@ -11,17 +11,17 @@ export class ClientsListComponent implements OnInit {
 
   @Input() clients: Client[];
   @Input() lock: Boolean;
+  @Output() rem = new EventEmitter<string>();
   loading: any;
 
-  constructor() { }
+  constructor(private serviceService: ServiceService) { }
 
   ngOnInit(): void {
   }
 
-  remove(id: string) {
+  remove(clid: string) {
     if (!this.lock) {
-    // implement
+      this.rem.emit(clid);
     }
   }
-
 }

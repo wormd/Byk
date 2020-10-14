@@ -1,9 +1,11 @@
 package byk.app.controller;
 
 import byk.app.model.Client;
+import byk.app.model.Employee;
 import byk.app.model.Service;
 import byk.app.model.Supply;
 import byk.app.repository.ClientRepository;
+import byk.app.repository.EmployeeRepository;
 import byk.app.repository.ServiceRepository;
 import byk.app.repository.SupplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class ServiceController {
 
     @Autowired
     SupplyRepository supplyRepository;
+
+    @Autowired
+    EmployeeRepository employeeRepository;
 
     @GetMapping
     public @ResponseBody
@@ -91,7 +96,7 @@ public class ServiceController {
                 Service service = serviceOpt.get();
                 service.addClient(clientOpt.get());
                 serviceRepository.save(service);
-                return ResponseEntity.ok(serviceOpt.get());
+                return ResponseEntity.ok(service.getClients());
             } else {
                 ResponseEntity.badRequest().body(Map.of("message", "This client doesn't exist"));
             }
@@ -112,7 +117,7 @@ public class ServiceController {
                 if (clients.contains(client)) {
                     service.removeClient(client);
                     serviceRepository.save(service);
-                    return ResponseEntity.ok(serviceOpt.get());
+                    return ResponseEntity.ok(clients);
                 } else {
                     ResponseEntity.badRequest().body(Map.of("message", "This client isn't registered on this service"));
                 }
@@ -123,7 +128,6 @@ public class ServiceController {
         return ResponseEntity.badRequest().body(Map.of("message", "This service doesn't exist"));
     }
 
-    // TODO: FIXTHIS Not adding correctly?
     @GetMapping("/{id}/supplies/{supply_id}/add")
     public @ResponseBody
     ResponseEntity<?> addSupply(@PathVariable("id") Long id, @PathVariable("supply_id") Long supplyId) {
@@ -134,7 +138,7 @@ public class ServiceController {
                 Service service = serviceOpt.get();
                 service.addSupply(supplyOpt.get());
                 serviceRepository.save(service);
-                return ResponseEntity.ok(serviceOpt.get());
+                return ResponseEntity.ok(service.getSupplies());
             } else {
                 ResponseEntity.badRequest().body(Map.of("message", "This supply doesn't exist"));
             }
@@ -155,12 +159,54 @@ public class ServiceController {
                 if (supplies.contains(supply)) {
                     service.removeSupply(supply);
                     serviceRepository.save(service);
-                    return ResponseEntity.ok(serviceOpt.get());
+                    return ResponseEntity.ok(supplies);
                 } else {
                     ResponseEntity.badRequest().body(Map.of("message", "This supply isn't registered on this service"));
                 }
             } else {
                 ResponseEntity.badRequest().body(Map.of("message", "This supply doesn't exist"));
+            }
+        }
+        return ResponseEntity.badRequest().body(Map.of("message", "This service doesn't exist"));
+    }
+
+    @GetMapping("/{id}/employees/{employee_id}/add")
+    public @ResponseBody
+    ResponseEntity<?> addEmployee(@PathVariable("id") Long id, @PathVariable("employee_id") Long employeeId) {
+        Optional<Service> serviceOpt = serviceRepository.findById(id);
+        if (serviceOpt.isPresent()) {
+            Optional<Employee> employeeOpt = employeeRepository.findById(employeeId);
+            if (employeeOpt.isPresent()) {
+                Service service = serviceOpt.get();
+                service.addEmployee(employeeOpt.get());
+                serviceRepository.save(service);
+                return ResponseEntity.ok(service.getStaff());
+            } else {
+                ResponseEntity.badRequest().body(Map.of("message", "This employee doesn't exist"));
+            }
+        }
+        return ResponseEntity.badRequest().body(Map.of("message", "This service doesn't exist"));
+    }
+
+    @GetMapping("/{id}/employees/{employee_id}/remove")
+    public @ResponseBody
+    ResponseEntity<?> removeEmployee(@PathVariable("id") Long id, @PathVariable("employee_id") Long employeeId) {
+        Optional<Service> serviceOpt = serviceRepository.findById(id);
+        if (serviceOpt.isPresent()) {
+            Optional<Employee> employeeOpt = employeeRepository.findById(employeeId);
+            if (employeeOpt.isPresent()) {
+                Service service = serviceOpt.get();
+                Employee employee = employeeOpt.get();
+                List<Employee> staff = service.getStaff();
+                if (staff.contains(employee)) {
+                    service.removeEmployee(employee);
+                    serviceRepository.save(service);
+                    return ResponseEntity.ok(staff);
+                } else {
+                    ResponseEntity.badRequest().body(Map.of("message", "This employee isn't registered on this service"));
+                }
+            } else {
+                ResponseEntity.badRequest().body(Map.of("message", "This employee doesn't exist"));
             }
         }
         return ResponseEntity.badRequest().body(Map.of("message", "This service doesn't exist"));

@@ -35,8 +35,9 @@ public class SupplyController {
     }
 
     @PostMapping
-    public void create(@RequestBody Supply supply) {
+    public ResponseEntity<Supply> create(@RequestBody Supply supply) {
         supplyRepository.save(supply);
+        return ResponseEntity.ok(supply);
     }
 
     @DeleteMapping("/{id}")

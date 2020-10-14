@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Supply } from '../_model/supply';
 import { AlertService } from './alert.service';
@@ -17,7 +17,7 @@ export class SupplyService {
   }
 
   public add(supply: Supply) {
-    return this.http.post<Supply>(this.url, supply).pipe(tap(() => {
+    return this.http.post<Supply>(this.url, supply).pipe(tap((a) => {
       this.alertService.message("Supply added.", "success");
     }, err => this.alertService.message("Supply couldn't be added.", "danger"))).toPromise();
   }

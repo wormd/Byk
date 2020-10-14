@@ -29,7 +29,7 @@ export class SupplyDialogAddComponent implements OnInit {
     this.dateModel ? this.supply.payDate = new Date(Date.UTC(this.dateModel.year, this.dateModel.month - 1, this.dateModel.day)) : this.supply.payDate = new Date();
     this.check ? this.supply.payEverys = this.days * 86400 : this.supply.payEverys = null;
     this.supplyService.add(this.supply).then(data => {
-      this.selected.emit(this.supply);
+      this.selected.emit(data);
       this.modal.close('Ok click');
     });
   }
