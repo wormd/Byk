@@ -8,6 +8,6 @@
   /*color: black;*/
 }
 
-.nav-link:hover {
+.my-active {
   background: lightgray;
 }

@@ -7,36 +7,36 @@
     </div>
     <ul class="navbar navbar-nav m-0 p-0 mt-2" style="align-items: normal;">
       <li class="nav-item">
-        <a routerLink="/" class="nav-link pl-2">Homepage</a>
+        <a routerLink="/" class="nav-link pl-2" routerLinkActive="my-active" [routerLinkActiveOptions]="{exact: true}"><i class="fas fa-home mr-2"></i>&nbsp;Homepage</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/tasks" class="nav-link pl-2">Tasks</a>
+        <a routerLink="/tasks" class="nav-link pl-2" routerLinkActive="my-active"><i class="fas fa-tasks mr-2"></i>&nbsp;Tasks</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/services" class="nav-link pl-2">Services</a>
+        <a routerLink="/services" class="nav-link pl-2" routerLinkActive="my-active"><i class="fas fa-address-book mr-2"></i>&nbsp;Services</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/invoices" class="nav-link pl-2">Invoices</a>
+        <a routerLink="/invoices" class="nav-link pl-2" routerLinkActive="my-active"><i class="fas fa-file-invoice mr-2"></i>&nbsp;Invoices</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/supplies" class="nav-link pl-2">Supplies</a>
+        <a routerLink="/supplies" class="nav-link pl-2" routerLinkActive="my-active"><i class="fas fa-boxes mr-2"></i>&nbsp;Supplies</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/employees" class="nav-link pl-2">Employees</a>
+        <a routerLink="/employees" class="nav-link pl-2" routerLinkActive="my-active"><i class="fas fa-user-tie mr-2"></i>&nbsp;Employees</a>
       </li>
 
       <li class="nav-item" (click)="dropdownShow = !dropdownShow">
-        <a routerLink="/accounts" class="nav-link pl-2">Accounts<i class="fa fa-caret-down"></i></a>
+        <a routerLink="/accounts" class="nav-link pl-2" routerLinkActive="my-active"><i class="fas fa-file-invoice-dollar mr-2"></i>&nbsp;Accounts<i class="fa fa-caret-down"></i></a>
       </li>
       <div class="" [hidden]="dropdownShow">
         <li class="nav-item">
-          <a routerLink="/transactions" class="nav-link pl-4">Transactions</a>
+          <a routerLink="/transactions" class="nav-link pl-4" routerLinkActive="my-active">Transactions</a>
         </li>
         <li class="nav-item">
-          <a routerLink="/cashbook" class="nav-link pl-4">Cashbook</a>
+          <a routerLink="/cashbook" class="nav-link pl-4" routerLinkActive="my-active">Cashbook</a>
         </li>
         <li class="nav-item">
-          <a routerLink="/cashbook" class="nav-link pl-4">Extract</a>
+          <a routerLink="/cashbook" class="nav-link pl-4" routerLinkActive="my-active">Extract</a>
         </li>
       </div>
     </ul>
