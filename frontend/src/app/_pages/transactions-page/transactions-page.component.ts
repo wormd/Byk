@@ -49,8 +49,9 @@ export class TransactionsPageComponent implements OnInit, OnDestroy {
     this.subs.push(this.accountService.accounts$.subscribe(data => {
       this.accounts = data;
     }));
-    // this.transfService.resetFilter();
+    this.transfService.resetFilter();
     this.parseParams();
+    this.updateFilter();
     this.transfService.doFilter();
     this.subs.push(this.transfService.transactions$.subscribe(d => {
       this.transactions = d;
@@ -80,8 +81,12 @@ export class TransactionsPageComponent implements OnInit, OnDestroy {
     by ? this.f.by = by : this.f.by = 'date';
   }
 
-  filterByClick() {
+  updateFilter() {
     this.transfService.filter.by = this.filterBy;
+  }
+
+  filterByClick() {
+    this.updateFilter();
     this.transfService.doFilter();
   }
 

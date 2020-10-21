@@ -80,10 +80,10 @@ public class TransactionController {
                                                @RequestParam int size,
                                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                                    @RequestParam(value = "after", required = false)
-                                                           LocalDateTime after,
+                                                           LocalDate after,
                                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                                    @RequestParam(value = "before", required = false)
-                                                           LocalDateTime before) {
+                                                           LocalDate before) {
         page -= 1;
         if (by.equals("date")) {
             this.transactionsPage = transactionRepository.findByDateAndDates(after, before,

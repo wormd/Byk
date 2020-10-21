@@ -53,7 +53,7 @@ export class TransactionsFilterService {
   }
 
   resetFilter() {
-    this.filter = {};
+    this.filter = {by: 'date', page:1, size:100};
   }
 
   doFilter() {
