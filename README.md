@@ -5,8 +5,8 @@
 and setup user and database:
 
 ```
-CREATE USER 'bykusr'@'%' IDENTIFIED BY 'pwdbykpwd';
-GRANT ALL PRIVILEGES ON bykdb.* TO 'bykusr'@'localhost';
+CREATE USER 'youruserhere'@'%' IDENTIFIED BY 'youpwdhere';
+GRANT ALL PRIVILEGES ON db.* TO 'youruserhere'@'localhost';
 ```
 
 ## To run db
@@ -19,7 +19,7 @@ GRANT ALL PRIVILEGES ON bykdb.* TO 'bykusr'@'localhost';
 
 ## To compile frontend
 
-```npm run ng build -- --prod --base-href /byk/ --deploy-url /```
+```npm run ng build -- --prod --base-href /byk/ --deploy-url ./```
 
 ## To run backend jar
 
@@ -35,4 +35,4 @@ SECRET_TOKEN
 ```
 and run:
 
-```java -jar -Dspring.profiles.active=prod snapshot.jar```
+```java -jar -Dspring.profiles.active=dev snapshot.jar```
